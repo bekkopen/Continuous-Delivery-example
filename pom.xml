@@ -3,27 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>no.bekkopen</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Bekk Open: Parent POM</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-		<servlet-api.version>2.5</servlet-api.version>
-		<jsp-api.version>2.2</jsp-api.version>
-		<el-impl.version>2.2</el-impl.version>
-		<el-api.version>2.2</el-api.version>
-		<jstl.version>1.2</jstl.version>
-		<jetty.version>7.4.0.v20110414</jetty.version>
-
-		<cucumber.version>0.4.4</cucumber.version>
-	</properties>
-
 	<modules>
 		<module>webapp</module>
-		<module>jetty-pkg</module>
 		<module>database</module>
 	</modules>
 
@@ -69,188 +54,173 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>commons-lang</groupId>
-				<artifactId>commons-lang</artifactId>
-				<version>2.5</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-beanutils</groupId>
-				<artifactId>commons-beanutils</artifactId>
-				<version>1.8.3</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-digester</groupId>
-				<artifactId>commons-digester</artifactId>
-				<version>2.1</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>2.0</version>
-			</dependency>
-
 			<!-- Container -->
-
 			<dependency>
-				<groupId>javax.ws.rs</groupId>
-				<artifactId>jsr311-api</artifactId>
-				<version>1.1.1</version>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-server</artifactId>
+				<version>${jetty.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>servlet-api</artifactId>
-				<version>${servlet-api.version}</version>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-webapp</artifactId>
+				<version>${jetty.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>javax.servlet.jsp</groupId>
-				<artifactId>jsp-api</artifactId>
-				<version>${jsp-api.version}</version>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-servlet</artifactId>
+				<version>${jetty.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>javax.el</groupId>
-				<artifactId>el-api</artifactId>
-				<version>${el-api.version}</version>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jsp-api-2.1-glassfish</artifactId>
+				<version>${glassfish-jsp-2.1.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>javax.servlet.jsp.jstl</groupId>
-				<artifactId>jstl-api</artifactId>
-				<version>${jstl.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>jstl</groupId>
-				<artifactId>jstl</artifactId>
-				<version>${jstl.version}</version>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jsp-2.1-glassfish</artifactId>
+				<version>${glassfish-jsp-2.1.version}</version>
 			</dependency>
 
 			<!-- Database -->
-
 			<dependency>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-core</artifactId>
-				<version>2.0.1</version>
+				<version>${liquibase.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
-				<version>5.1.13</version>
+				<version>${mysql-connector.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.persistence</groupId>
 				<artifactId>persistence-api</artifactId>
-				<version>1.0</version>
+				<version>${persistence-api.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>4.0.2.GA</version>
-			</dependency>
-			<dependency>
-				<groupId>joda-time</groupId>
-				<artifactId>joda-time</artifactId>
-				<version>1.6.2</version>
+				<version>${hibernate-validator.version}</version>
 			</dependency>
 
 			<!-- Testing -->
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.8.2</version>
+				<version>${junit.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.hamcrest</groupId>
-				<artifactId>hamcrest-core</artifactId>
-				<version>1.2</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hamcrest</groupId>
-				<artifactId>hamcrest-library</artifactId>
-				<version>1.2</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hamcrest</groupId>
-				<artifactId>hamcrest-integration</artifactId>
-				<version>1.2</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-all</artifactId>
-				<version>1.8.5</version>
-			</dependency>
-			<dependency>
-				<groupId>org.seleniumhq.selenium</groupId>
-				<artifactId>selenium-htmlunit-driver</artifactId>
-				<version>2.0b1</version>
-			</dependency>
-			<!-- Logging -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
-				<version>1.6.1</version>
+				<version>${slf4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-core</artifactId>
-				<version>0.9.15</version>
+				<version>${logback.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
-				<version>0.9.15</version>
+				<version>${logback.version}</version>
+			</dependency>
+
+			<!-- Commons -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
 			</dependency>
 		</dependencies>
-
 	</dependencyManagement>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${build-helper-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>add-test-source</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>add-test-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<source>src/it/java</source>
+								</sources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${compiler-plugin.version}</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<optimize>true</optimize>
+						<encoding>UTF-8</encoding>
+						<showDeprecation>true</showDeprecation>
+						<showWarnings>true</showWarnings>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${surefire.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${release-plugin.version}</version>
+					<configuration>
+						<scmCommentPrefix>Release:</scmCommentPrefix>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>appassembler-maven-plugin</artifactId>
+					<version>${appassembler.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<configuration>
+						<appendAssemblyId>false</appendAssemblyId>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>${jetty.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<optimize>true</optimize>
-					<encoding>UTF-8</encoding>
-					<showDeprecation>true</showDeprecation>
-					<showWarnings>true</showWarnings>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.7.2</version>
-				<configuration>
-					<includes>
-						<include>**/*Spec.class</include>
-						<include>**/*Specs.class</include>
-						<include>**/*Test.class</include>
-					</includes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>1.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<configuration>
-					<scmCommentPrefix>Release:</scmCommentPrefix>
-				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>appassembler-maven-plugin</artifactId>
 				<groupId>org.codehaus.mojo</groupId>
-				<version>1.0-alpha-2</version>
+				<artifactId>appassembler-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<groupId>org.apache.maven.plugins</groupId>
-				<configuration>
-					<appendAssemblyId>false</appendAssemblyId>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -261,5 +231,31 @@
 			<url>https://oss.sonatype.org/content/repositories/releases</url>
 		</pluginRepository>
 	</pluginRepositories>
+
+	<properties>
+		<!-- Dependency versions -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<glassfish-jsp-2.1.version>2.1.v20100127</glassfish-jsp-2.1.version>
+		<jetty.version>8.0.1.v20110908</jetty.version>
+		<persistence-api.version>1.0</persistence-api.version>
+		<mysql-connector.version>5.1.17</mysql-connector.version>
+		<hibernate-validator.version>4.0.2.GA</hibernate-validator.version>
+		<liquibase.version>2.0.1</liquibase.version>
+		<logback.version>0.9.28</logback.version>
+		<slf4j.version>1.6.1</slf4j.version>
+		<commons-io.version>2.0.1</commons-io.version>
+		<appassembler.version>1.0-alpha-2</appassembler.version>
+		<junit.version>4.9</junit.version>
+		<surefire.version>2.9</surefire.version>
+		<!-- Plugin versions -->
+		<build-helper-plugin.version>1.5</build-helper-plugin.version>
+		<release-plugin.version>2.1</release-plugin.version>
+		<compiler-plugin.version>2.3.2</compiler-plugin.version>
+		<!-- Other properties -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<jetty.port>8080</jetty.port>
+	</properties>
 </project>
 

@@ -25,3 +25,4 @@ parent.iml
 parent.ipr
 parent.iws
 target/
+/logs

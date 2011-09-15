@@ -7,17 +7,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.TimeZone;
 
+import no.bekkopen.jetty.config.MyQueuedThreadPool;
+import no.bekkopen.jetty.config.MySelectChannelConnector;
+import no.bekkopen.jetty.config.MyWebAppContext;
+import no.bekkopen.jetty.config.SystemPropertiesLoader;
+
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.util.RolloverFileOutputStream;
-
-import no.bekkopen.jetty.config.MyQueuedThreadPool;
-import no.bekkopen.jetty.config.MySelectChannelConnector;
-import no.bekkopen.jetty.config.MyWebAppContext;
-import no.bekkopen.jetty.config.SystemPropertiesLoader;
 
 public class WebServerMain {
 
@@ -49,18 +49,15 @@ public class WebServerMain {
 			throw new RuntimeException(UNABLE_TO_START, e);
 		}
 		port = jettyServer.getConnectors()[0].getLocalPort();
-		System.out.println(
-				"JettyServer started on http://" + System.getProperty("hostname", "localhost") + ":" + port
-						+ SESSION_PATH);
+		System.out.println("JettyServer started on http://" + System.getProperty("hostname", "localhost") + ":" + port + SESSION_PATH);
 	}
 
 	public static void stop() {
 		if (jettyServer != null) {
 			try {
 				jettyServer.stop();
-				System.out.println(
-						"JettyServer stopped on http://" + System.getProperty("hostname", "localhost") + ":" + port
-								+ SESSION_PATH);
+				System.out.println("JettyServer stopped on http://" + System.getProperty("hostname", "localhost") + ":" + port
+						+ SESSION_PATH);
 			} catch (final Exception e) {
 				System.err.println(UNABLE_TO_STOP);
 				throw new RuntimeException(UNABLE_TO_STOP, e);
@@ -81,17 +78,12 @@ public class WebServerMain {
 
 		jettyServer.setThreadPool(new MyQueuedThreadPool());
 
-		final String jettyPort = System.getProperty("jetty.port");
-		if (jettyPort != null) {
-			jettyServer.setConnectors(new Connector[] { new MySelectChannelConnector(Integer.parseInt(jettyPort)) });
-		} else {
-			throw new RuntimeException(UNABLE_TO_START + ": System property 'jetty.port' is missing.");
-		}
+		jettyServer.setConnectors(new Connector[] { new MySelectChannelConnector() });
 
 		List<Handler> handlerList = new ArrayList<Handler>();
 
-		handlerList.add(new MyWebAppContext(findPathToWarFile(new File(System.getProperty("basedir",
-				"target/appassembler/repo"))), SESSION_PATH));
+		handlerList.add(new MyWebAppContext(findPathToWarFile(new File(System.getProperty("basedir", "target/appassembler/repo"))),
+				SESSION_PATH));
 
 		final HandlerCollection handlers = new HandlerCollection();
 		handlers.setHandlers(handlerList.toArray(new Handler[handlerList.size()]));
@@ -106,8 +98,7 @@ public class WebServerMain {
 			File logDir = new File(System.getProperty("jetty.home", "../logs"));
 			logDir.mkdir();
 			final String logName = logDir.getAbsolutePath() + "/stderrout.yyyy_mm_dd.log";
-			RolloverFileOutputStream logFile = new RolloverFileOutputStream(logName, false, 90,
-					TimeZone.getTimeZone("GMT+1"));
+			RolloverFileOutputStream logFile = new RolloverFileOutputStream(logName, false, 90, TimeZone.getTimeZone("GMT+1"));
 			final PrintStream serverLog = new PrintStream(logFile);
 			System.setOut(serverLog);
 			System.setErr(serverLog);
