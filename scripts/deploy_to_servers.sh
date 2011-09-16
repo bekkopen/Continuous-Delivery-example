@@ -19,9 +19,10 @@ done
 
 server_suffix=".muda.no"
 servers=( "node1" "node2" "node3")
-artifacts=("../jetty-pkg/target/jetty-pkg-$version.zip")
+appname=webbapp
+artifacts=("../$appname/target/$appname-$version.zip")
 config_dir="../config"
-config_files=("deploy.config" "webapp.properties")
+config_files=("deploy.config" "$appname.properties")
 script_files=("deploy.sh" "server_monitor.sh" "startup.sh")
 
 upload_file() {
@@ -63,9 +64,9 @@ for server in ${servers[@]}
 do
   server_host="$server$server_suffix"
 	echo "Deploying jetty-pkg on $server_host"
-	ssh -tt bekkopen@$server_host "cd /srv/bekkopen; nohup ./deploy.sh jetty-pkg $version > /dev/null 2>&1 </dev/null"
+	ssh -tt bekkopen@$server_host "cd /srv/bekkopen; nohup ./deploy.sh $appname $version > /dev/null 2>&1 </dev/null"
 	if [ "$?" -ne "0" ]; then
-		echo "deploy.sh for jetty-pkg over ssh failed! Quitting..."
+		echo "deploy.sh for $appname over ssh failed! Quitting..."
 		exit 127
 	fi
 done
