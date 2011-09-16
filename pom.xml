@@ -20,11 +20,11 @@
 	<distributionManagement>
 		<repository>
 			<id>bekkopen.releases</id>
-			<url>http://mgmt.muda.no:8081/nexus/content/repositories/releases</url>
+			<url>http://morisbak.net:8081/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>bekkopen.snapshots</id>
-			<url>http://mgmt.muda.no:8081/nexus/content/repositories/snapshots</url>
+			<url>http://morisbak.net:8081/nexus/content/repositories/snapshots</url>
 			<uniqueVersion>true</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
@@ -32,7 +32,7 @@
 	<repositories>
 		<repository>
 			<id>bekkopen.releases</id>
-			<url>http://mgmt.muda.no:8081/nexus/content/repositories/releases</url>
+			<url>http://morisbak.net:8081/nexus/content/repositories/releases</url>
 		</repository>
 		<repository>
 			<id>sonatype.releases</id>
@@ -264,8 +264,7 @@
 		<!-- Other properties -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<jetty.port>8080</jetty.port>
+		<jetty.port>9090</jetty.port>
 		<hostname>${env.HOSTNAME}</hostname>
 	</properties>
 </project>
-

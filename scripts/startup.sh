@@ -11,9 +11,9 @@
 # description: Starts and stops <application>
 #
 
-APP_NAME=jetty-pkg
-JAVA_HOME=/usr/java/jdk1.6.0_25
-HOME_DIR=/srv/bekkopen
+APP_NAME=webapp
+JAVA_HOME=$(/usr/libexec/java_home)
+HOME_DIR=/server/bekkopen
 USER=bekkopen
 
 #

@@ -30,9 +30,9 @@ upload_file() {
   local file=$2
 	if [ -f $artifact ]; then
 		echo "Uploading $file to $server"
-		scp $file bekkopen@$server:/srv/bekkopen/
+		scp $file bekkopen@$server:/server/bekkopen/
 		if [ "$?" -ne "0" ]; then
-			echo "scp $file bekkopen@$server:/srv/bekkopen/ failed! Quitting..."
+			echo "scp $file bekkopen@$server:/server/bekkopen/ failed! Quitting..."
 			exit 127
 		fi
 	else
@@ -64,7 +64,7 @@ for server in ${servers[@]}
 do
   server_host="$server$server_suffix"
 	echo "Deploying jetty-pkg on $server_host"
-	ssh -tt bekkopen@$server_host "cd /srv/bekkopen; nohup ./deploy.sh $appname $version > /dev/null 2>&1 </dev/null"
+	ssh -tt bekkopen@$server_host "cd /server/bekkopen; nohup ./deploy.sh $appname $version > /dev/null 2>&1 </dev/null"
 	if [ "$?" -ne "0" ]; then
 		echo "deploy.sh for $appname over ssh failed! Quitting..."
 		exit 127

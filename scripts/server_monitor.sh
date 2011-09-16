@@ -7,8 +7,8 @@
 # Author: Stein Inge Morisbak (stein.inge.morisbak@BEKK.no)
 #
 
-JAVA_HOME=/usr/java/jdk1.6.0_25
-APP_HOME=/srv/bekkopen/jetty-pkg
+JAVA_HOME=$(/usr/libexec/java_home)
+APP_HOME=/server/bekkopen/webapp
 
 hostname=`hostname`
 PID=`ps -ea -o "pid ppid args" | grep -v grep | grep "${JAVA_HOME}/bin/java" \
