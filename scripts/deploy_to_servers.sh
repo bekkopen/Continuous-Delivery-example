@@ -4,7 +4,7 @@
 
 candidate_artifacts=( "webapp" )
 servers=( "node1" "node2" "node3")
-server_suffix=".muda.no"
+server_suffix=".morisbak.net"
 user="bekkopen"
 startup_script="startup.sh"
 deploy_script="deploy.sh"

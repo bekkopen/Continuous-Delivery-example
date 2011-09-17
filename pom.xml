@@ -20,11 +20,11 @@
 	<distributionManagement>
 		<repository>
 			<id>bekkopen.releases</id>
-			<url>http://morisbak.net:8081/nexus/content/repositories/releases</url>
+			<url>http://localhost:8081/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>bekkopen.snapshots</id>
-			<url>http://morisbak.net:8081/nexus/content/repositories/snapshots</url>
+			<url>http://localhost:8081/nexus/content/repositories/snapshots</url>
 			<uniqueVersion>true</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
@@ -32,7 +32,7 @@
 	<repositories>
 		<repository>
 			<id>bekkopen.releases</id>
-			<url>http://morisbak.net:8081/nexus/content/repositories/releases</url>
+			<url>http://localhost:8081/nexus/content/repositories/releases</url>
 		</repository>
 		<repository>
 			<id>sonatype.releases</id>
