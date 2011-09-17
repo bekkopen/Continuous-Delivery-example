@@ -87,7 +87,7 @@ case $1 in
       RETVAL=1
     fi
     ;;
-    restart)
+  restart)
     if [ "${PID}" != "" ]
     then
       _stopp
@@ -111,7 +111,7 @@ case $1 in
     ;;
 
   *)
-    echo "Usage: $0 { start | stop | status }"
+    echo "Usage: $0 { start | stop | restart | status }"
     exit 1
     ;;
 
