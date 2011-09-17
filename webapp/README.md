@@ -9,10 +9,9 @@ Usage
 
 Test usage
 ===========
-* Set your hostname: <code>export HOSTNAME=$(hostname)</code>. If you are on Unix/Linux/Mac put it in your <code>~/.bash_profile</code>. If you are on Windows, make your hostname an environment variable.
 * Build it: <code>mvn clean install</code>
 * Run it: <code>mvn exec:java</code>
 
 Jetty Run
 =========
-* Allthough discouraged <code>mvn jetty:run</code>
+* Although discouraged: <code>mvn jetty:run</code>
