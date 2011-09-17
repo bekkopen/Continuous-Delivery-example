@@ -1,6 +1,6 @@
 Example Java webapp infrastructure for Continuous Delivery 
 ============================================================
-This is an example of a Java webapp project which supports techniques for continuous delivery of software into production.
+This is an example of a Java webapp project which supports techniques for continuous delivery.
 
 Core concepts are:
 
