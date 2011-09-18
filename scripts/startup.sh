@@ -22,7 +22,7 @@ USER=bekkopen
 APP_HOME=${HOME_DIR}/${APP_NAME}
 APPDIR=${APP_HOME}/bin
 STARTSCRIPT=${APPDIR}/${APP_NAME}
-LOGFILE=${APPDIR}/../logs/${APP_NAME}.log
+LOGFILE=${HOME_DIR}/logs/${APP_NAME}.log
 LC_ALL=no_NO.utf8
 
 umask 002
@@ -41,7 +41,7 @@ _start()
    then
      sh -x ${STARTSCRIPT} 1>>${LOGFILE} 2>&1 & RETVAL=$?
    else
-     /bin/su "${USER}" -c "sh -x ${STARTSCRIPT} 1>>${LOGFILE} 2>&1 & RETVAL=$?"
+     su "${USER}" -c "sh -x ${STARTSCRIPT} 1>>${LOGFILE} 2>&1 & RETVAL=$?"
    fi
    if [ "$?" = "0" ]
    then

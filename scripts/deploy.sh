@@ -200,6 +200,10 @@ _delete ${ARTIFACT}-${VERSION}.zip
 
 _run "ln -s $DIRECTORY_NAME ${ARTIFACT}"
 
+if [ ! -d logs ]; then
+   _run "mkdir logs"
+fi
+
 _start
 
 if [ "$?" -eq "0" ]; then
