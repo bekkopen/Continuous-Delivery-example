@@ -81,24 +81,6 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<configuration>
-					<scanIntervalSeconds />
-					<!-- <connectors> -->
-					<!-- <connector implementation="no.bekkopen.jetty.config.MySelectChannelConnector"> -->
-					<!-- <port>${jetty.port}</port> -->
-					<!-- </connector> -->
-					<!-- </connectors> -->
-					<systemProperties>
-						<systemProperty>
-							<name>file.encoding</name>
-							<value>UTF-8</value>
-						</systemProperty>
-					</systemProperties>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 

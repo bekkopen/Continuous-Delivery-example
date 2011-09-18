@@ -14,4 +14,4 @@ Test usage
 
 Jetty Run
 =========
-* Although discouraged: <code>mvn jetty:run</code>
+* We don't do jetty:run. Use <code>mvn exec:java</code> instead. We want to run the same code every time!
