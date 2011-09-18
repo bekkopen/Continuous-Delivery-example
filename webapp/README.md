@@ -4,8 +4,8 @@ Usage
 Alternative 1:
 --------------
 * Build it: <code>mvn clean install</code>
-* Unzip it: <code>cd webapp/target; unzip webapp-*.zip</code>
-* Run it: <code>cd webapp-*/bin; ./webapp</code>
+* Unzip it: <code>unzip target/webapp-*.zip</code>
+* Run it: <code>target/webapp-*/bin/webapp</code>
 
 Alternative 2:
 --------------
