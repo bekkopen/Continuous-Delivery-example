@@ -13,6 +13,7 @@ Content:
 * database/: Database artifact. Contains code for interacting with the database and generating schemas.
 * webapp/: Embedded Jetty webapp artifact. Contains the deployable webapp artifact.
 * scripts/: Contains scripts for deploying, starting and monitoring of the webapp.
+* config/: Contains config for the app and the deploy script.
 
 Preconditions:
 --------------
