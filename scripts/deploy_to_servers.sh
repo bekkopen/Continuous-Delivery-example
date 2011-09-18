@@ -115,7 +115,7 @@ for target in ${targets[@]}
 do
   if [ $(contains "${servers[@]}" $target) == "y" ]; then
     server=$target
-    config_file="$config_dir/$target/deploy.config"
+    config_file="$config_dir/deploy.config"
   else
     echo "$target is invalid! Quitting ..."
     exit 804
