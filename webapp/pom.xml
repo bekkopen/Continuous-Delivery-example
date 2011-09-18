@@ -139,10 +139,10 @@
 			</build>
 		</profile>
 		<profile>
-			<id>deploy-til-server</id>
+			<id>deploy</id>
 			<activation>
 				<property>
-					<name>deploy.til.server</name>
+					<name>deploy.to.server</name>
 				</property>
 			</activation>
 			<build>
@@ -160,30 +160,24 @@
 						<artifactId>maven-antrun-plugin</artifactId>
 						<configuration>
 							<target>
-								<echo
-									message="Deleting ${project.build.finalName}.zip from ${host} if it allready exists..." />
-								<echo
-									message="Running: ssh -tt ${host.user}@${host} if [ -f ${project.build.finalName}.zip ]; then rm -f ${project.build.finalName}.zip ; fi" />
+								<echo message="Deleting ${project.build.finalName}.zip from ${host} if it allready exists..." />
+								<echo message="Running: ssh -tt ${host.user}@${host} if [ -f ${project.build.finalName}.zip ]; then rm -f ${project.build.finalName}.zip ; fi" />
 								<exec executable="ssh" failonerror="true">
 									<arg value="${host.user}@${host}" />
-									<arg
-										value="if [ -f ${project.build.finalName}.zip ]; then rm -f ${project.build.finalName}.zip ; fi" />
+									<arg value="if [ -f ${project.build.finalName}.zip ]; then rm -f ${project.build.finalName}.zip ; fi" />
 								</exec>
 								<echo message="Uploading ${project.build.finalName}.zip to ${host}..." />
-								<echo
-									message="Running: scp target/${project.build.finalName}.zip ${host.user}@${host}:${host.path}" />
+								<echo message="Running: scp target/${project.build.finalName}.zip ${host.user}@${host}:${host.path}" />
 								<exec executable="scp" failonerror="true">
 									<arg value="target/${project.build.finalName}.zip" />
 									<arg value="${host.user}@${host}:" />
 								</exec>
 								<echo message="Deploying version ${project.version} to ${host}" />
-								<echo
-									message="Running: ssh -tt ${host.user}@${host} nohup ./deploy.sh ${project.artifactId} ${project.version} &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
+								<echo message="Running: ssh -tt ${host.user}@${host} nohup ./deploy.sh ${project.artifactId} ${project.version} &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
 								<exec executable="ssh" failonerror="true">
 									<arg value="-tt" />
 									<arg value="${host.user}@${host}" />
-									<arg
-										value="nohup ./deploy.sh ${project.artifactId} ${project.version} &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
+									<arg value="nohup ./deploy.sh ${project.artifactId} ${project.version} &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
 								</exec>
 							</target>
 						</configuration>
@@ -213,16 +207,13 @@
 						<artifactId>maven-antrun-plugin</artifactId>
 						<configuration>
 							<target>
-								<input message="What version do you want to roll back to?:"
-									addproperty="version.rollback" defaultvalue="${project.version}" />
+								<input message="What version do you want to roll back to?:" addproperty="version.rollback" defaultvalue="${project.version}" />
 								<echo message="Rolling back to ${version.rollback} on ${host}" />
-								<echo
-									message="Running: ssh -tt ${host.user}@${host} nohup ./deploy.sh ${project.artifactId} ${version.rollback}.backup &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
+								<echo message="Running: ssh -tt ${host.user}@${host} nohup ./deploy.sh ${project.artifactId} ${version.rollback}.backup &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
 								<exec executable="ssh" failonerror="true">
 									<arg value="-tt" />
 									<arg value="${host.user}@${host}" />
-									<arg
-										value="nohup ./deploy.sh ${project.artifactId} ${version.rollback}.backup &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
+									<arg value="nohup ./deploy.sh ${project.artifactId} ${version.rollback}.backup &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
 								</exec>
 							</target>
 						</configuration>
