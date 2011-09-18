@@ -25,6 +25,8 @@ Alternative 1:
 
 Alternative 2:
 --------------
-1 <code>mvn clean install -Dpush-deploy</code>
-2 <code>mvn clean -Dpull-deploy</code>
-3 <code>mvn clean -Drollback</code>
+1. <code>mvn clean install -Dpush-deploy</code>
+
+2. <code>mvn clean -Dpull-deploy</code>
+
+3. <code>mvn clean -Drollback</code>
