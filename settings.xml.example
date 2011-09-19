@@ -1,0 +1,14 @@
+<settings>  
+ <servers>  
+  <server>  
+   <id>bekkopen.releases</id>  
+   <username>deployment</username>  
+   <password>bekkopen123</password>  
+  </server>  
+  <server>
+   <id>bekkopen.snapshots</id>  
+   <username>deployment</username>
+   <password>bekkopen123</password>       
+  </server>
+ </servers>  
+</settings>
