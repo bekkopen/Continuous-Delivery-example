@@ -69,6 +69,11 @@
                 </pluginRepository>
         </pluginRepositories>
 
+	<ciManagement>
+		<system>jenkins</system>
+		<url>http://node2.morisbak.net:8080</url>
+	</ciManagement>
+
 	<dependencyManagement>
 		<dependencies>
 			<!-- Container -->
