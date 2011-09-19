@@ -4,9 +4,13 @@
 
 candidate_artifacts=( "webapp" )
 servers=( "localhost" "node1" "node2" "node3")
+prod_servers=( "node1" "node2" "node3")
+server_postfix=".morisbak.net"
 user="bekkopen"
 startup_script="startup.sh"
 deploy_script="deploy.sh"
+scripts_dir="../scripts"
+config_file="deploy.config"
 config_dir="../config"
 
 ###### FUNCTIONS #########
@@ -115,16 +119,18 @@ for target in ${targets[@]}
 do
   if [ $(contains "${servers[@]}" $target) == "y" ]; then
     server=$target
-    config_file="$config_dir/deploy.config"
+    if [ $(contains "${prod_servers[@]}" $target) == "y" ]; then
+      server=$server@$server_postfix
+    fi
   else
     echo "$target is invalid! Quitting ..."
     exit 804
   fi
   server_host="$user@$server"
   if [ "true" == $deploy_from_local_files ]; then
-    upload_file $server_host $startup_script ./
-    upload_file $server_host $deploy_script ./
-    upload_file $server_host $config_file ./
+    upload_file $server_host $scripts_dir/$target/$startup_script ./
+    upload_file $server_host $scripts_dir/$target/$deploy_script ./
+    upload_file $server_host $config_dir/$target/$config_file ./
     for artifact in ${artifacts[@]}
     do
       upload_file $server_host "../$artifact/target/$artifact-$version.zip" ./

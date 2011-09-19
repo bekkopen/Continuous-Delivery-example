@@ -20,11 +20,11 @@
 	<distributionManagement>
 		<repository>
 			<id>bekkopen-nexus</id>
-			<url>http://178.79.165.92:8081/nexus/content/repositories/releases</url>
+			<url>http://node1.morisbak.net:8081/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>bekkopen-nexus</id>
-			<url>dav:http://178.79.165.92:8081/nexus/content/repositories/snapshots</url>
+			<url>dav:http://node1.morisbak.net:8081/nexus/content/repositories/snapshots</url>
 			<uniqueVersion>true</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
@@ -32,7 +32,7 @@
 	<repositories>
 		<repository>
 			<id>bekkopen-nexus</id>
-			<url>http://178.79.165.92:8081/nexus/content/groups/public</url>
+			<url>http://node1.morisbak.net:8081/nexus/content/groups/public</url>
 			<releases>  
 				<enabled>true</enabled>  
 			</releases>  
@@ -61,7 +61,7 @@
         <pluginRepositories>
                 <pluginRepository>
                         <id>bekkopen-nexus</id>
-                        <url>http://178.79.165.92:8081/nexus/content/groups/public</url>
+                        <url>http://node1.morisbak.net:8081/nexus/content/groups/public</url>
                 </pluginRepository>
                 <pluginRepository>
                         <id>sonatype.releases</id>
