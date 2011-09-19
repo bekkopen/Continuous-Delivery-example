@@ -1,14 +1,9 @@
 <settings>  
  <servers>  
   <server>  
-   <id>bekkopen.releases</id>  
+   <id>bekkopen-nexus</id>  
    <username>deployment</username>  
    <password>bekkopen123</password>  
   </server>  
-  <server>
-   <id>bekkopen.snapshots</id>  
-   <username>deployment</username>
-   <password>bekkopen123</password>       
-  </server>
  </servers>  
 </settings>
