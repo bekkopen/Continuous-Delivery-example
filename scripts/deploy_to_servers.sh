@@ -9,6 +9,7 @@ server_postfix=".morisbak.net"
 user="bekkopen"
 startup_script="startup.sh"
 deploy_script="deploy.sh"
+monitor_script="server_monitor.sh"
 scripts_dir="../scripts"
 config_file="deploy.config"
 config_dir="../config"
@@ -120,7 +121,7 @@ do
   if [ $(contains "${servers[@]}" $target) == "y" ]; then
     server=$target
     if [ $(contains "${prod_servers[@]}" $target) == "y" ]; then
-      server=$server@$server_postfix
+      server=$server$server_postfix
     fi
   else
     echo "$target is invalid! Quitting ..."
@@ -130,6 +131,7 @@ do
   if [ "true" == $deploy_from_local_files ]; then
     upload_file $server_host $scripts_dir/$target/$startup_script ./
     upload_file $server_host $scripts_dir/$target/$deploy_script ./
+    upload_file $server_host $scripts_dir/$target/$monitor_script ./
     upload_file $server_host $config_dir/$target/$config_file ./
     for artifact in ${artifacts[@]}
     do
