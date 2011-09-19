@@ -3,7 +3,7 @@
   <server>  
    <id>bekkopen-nexus</id>  
    <username>deployment</username>  
-   <password>bekkopen123</password>  
+   <password>hemmelig</password>  
   </server>  
  </servers>  
 </settings>
