@@ -20,7 +20,7 @@ trash
 /*/logs
 /*/*/logs
 /*/*.log
-/*/generated-java
+**/generated-java
 database/database.iml
 parent.iml
 parent.ipr
