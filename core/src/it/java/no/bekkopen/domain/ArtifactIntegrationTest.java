@@ -1,6 +1,6 @@
 package no.bekkopen.domain;
 
-import no.bekkopen.dao.CarDao;
+import no.bekkopen.dao.ArtifactDao;
 
 import org.junit.Test;
 
@@ -18,31 +18,33 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @IfProfileValue(name = "integration", value = "true")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:testApplicationContext.xml" })
-public class CarIntegrationTest {
+public class ArtifactIntegrationTest {
 
 	@Autowired
-	private CarDao carDao;
+	private ArtifactDao artifactDao;
 	private Logger logger = Logger.getLogger("myLog");
 	private Long id;
 
 	@Before
 	public void init() {
-        int carNumber = carDao.getCars().size();
 		id = 1L;
 	}
 
 	@Test
-	public void listCarsTest() {
-		List<Car> cars = carDao.getCars();
-        logger.info("Cars: " + cars.size());
-		Assert.assertNotNull(cars);
-		Assert.assertEquals(3, cars.size());
+	public void listArtifactsTest() {
+		List<Artifact> artifacts = artifactDao.getArtifacts();
+        logger.info("Artifacts: " + artifacts.size());
+		Assert.assertNotNull(artifacts);
+		Assert.assertEquals(4, artifacts.size());
 	}
 
 	@Test
-	public void getCarTest() {
-		Car car = carDao.getCar(id);
-		Assert.assertEquals(id.longValue(), car.getId());
-		Assert.assertEquals("Corolla Verso", car.getModel());
+	public void getArtifactTest() {
+		Artifact artifact = artifactDao.getArtifact(id);
+		Assert.assertEquals(id.longValue(), artifact.getId());
+		Assert.assertEquals("no.bekkopen", artifact.getGropId());
+		Assert.assertEquals("webapp", artifact.getArtifactId());
+		Assert.assertEquals("0.1-SNAPSHOT", artifact.getVersion());
+		Assert.assertEquals("zip", artifact.getPackaging());
 	}
 }

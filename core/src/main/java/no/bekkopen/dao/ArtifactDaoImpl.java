@@ -6,14 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import no.bekkopen.domain.Car;
+import no.bekkopen.domain.Artifact;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class CarDaoImpl implements CarDao {
+public class ArtifactDaoImpl implements ArtifactDao {
 
 	protected EntityManager entityManager;
 
@@ -27,15 +27,15 @@ public class CarDaoImpl implements CarDao {
 	}
 
 	@Transactional
-	public List<Car> getCars() throws DataAccessException {
-		Query query = getEntityManager().createQuery("select c from Car c");
+	public List<Artifact> getArtifacts() throws DataAccessException {
+		Query query = getEntityManager().createQuery("select a from Artifact a");
 		@SuppressWarnings("unchecked")
-		List<Car> resultList = query.getResultList();
+		List<Artifact> resultList = query.getResultList();
 		return resultList;
 	}
 
 	@Transactional
-	public Car getCar(Long carId) throws DataAccessException {
-		return getEntityManager().find(Car.class, carId);
+	public Artifact getArtifact(Long id) throws DataAccessException {
+		return getEntityManager().find(Artifact.class, id);
 	}
 }

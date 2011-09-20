@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="oc" id="1-create-artifact">
+        <createTable tableName="Artifact">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="groupId" type="VARCHAR(255)"/>
+            <column name="artifactId" type="VARCHAR(255)"/>
+            <column name="version" type="VARCHAR(255)"/>
+            <column name="packaging" type="VARCHAR(3)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
