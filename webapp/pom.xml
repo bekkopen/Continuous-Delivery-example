@@ -325,8 +325,8 @@
                         <version>${cuke4duke.version}</version>
                         <configuration>
                             <jvmArgs>
-                                <jvmArg>-Xmx128m</jvmArg>
-                                <jvmArg>-XX:MaxPermSize=56m</jvmArg>
+                                <!--jvmArg>-Xmx128m</jvmArg>
+                                <jvmArg>-XX:MaxPermSize=56m</jvmArg-->
                                 <jvmArg>-Dcuke4duke.springXml=cucumber.xml</jvmArg>
                                 <jvmArg>-Dcuke4duke.objectFactory=cuke4duke.internal.jvmclass.SpringFactory</jvmArg>
                             </jvmArgs>
