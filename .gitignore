@@ -27,3 +27,4 @@ parent.ipr
 parent.iws
 target/
 /logs
+core/src/main/generated-java/
