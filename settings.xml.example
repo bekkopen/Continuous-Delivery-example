@@ -1,0 +1,9 @@
+<settings>  
+ <servers>  
+  <server>  
+   <id>bekkopen-nexus</id>  
+   <username>deployment</username>  
+   <password>hemmelig</password>  
+  </server>  
+ </servers>  
+</settings>

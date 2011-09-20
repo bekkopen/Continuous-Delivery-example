@@ -12,7 +12,7 @@
 #
 
 APP_NAME=webapp
-JAVA_HOME=/usr/local/java
+JAVA_HOME=$(/usr/libexec/java_home)
 HOME_DIR=/server/bekkopen
 USER=bekkopen
 

@@ -3,11 +3,15 @@
 ###### CONFIG ############
 
 candidate_artifacts=( "webapp" )
-servers=( "node1" "node2" "node3")
-server_suffix=".muda.no"
+servers=( "localhost" "node1" "node2" "node3")
+prod_servers=( "node1" "node2" "node3")
+server_postfix=".morisbak.net"
 user="bekkopen"
 startup_script="startup.sh"
 deploy_script="deploy.sh"
+monitor_script="server_monitor.sh"
+scripts_dir="../scripts"
+config_file="deploy.config"
 config_dir="../config"
 
 ###### FUNCTIONS #########
@@ -16,9 +20,9 @@ upload_file() {
   local server=$1
   local file=$2
   local target=$3
-  if [ -f $artifact ]; then
-    echo "Uploading $file to $server:$target"
+  if [ -f $file ]; then
     upload="scp $file $server:$target"
+    echo Running $upload
     eval $upload
     if [ "$?" -ne "0" ]; then
       echo "The command $upload failed! Quitting ..."
@@ -61,7 +65,7 @@ do
   fi
 done
 
-version="`grep artifactId.*parent ../../pom.xml -A1 | grep version | sed -E 's/.*<version>(.*)<\/version>/\1/'`"
+version="`grep artifactId.*parent ../pom.xml -A1 | grep version | sed -E 's/.*<version>(.*)<\/version>/\1/'`"
 read -p "Versjon? [$version] " input_version
 if [ $input_version ]; then
   version=$input_version
@@ -107,7 +111,7 @@ if [ ${#artifacts[@]} -eq 0 ]; then
   exit 0;
 fi
 
-echo The following artifacts will be deployed to ${servers[@]: ${artifacts[@]}
+echo Deploying: ${artifacts[@]}
 
 targets=${parameters[@]}
 declare -a deploy_cmds
@@ -116,19 +120,22 @@ for target in ${targets[@]}
 do
   if [ $(contains "${servers[@]}" $target) == "y" ]; then
     server=$target
-    config_file="$config_dir/$target/deploy.config"
+    if [ $(contains "${prod_servers[@]}" $target) == "y" ]; then
+      server=$server$server_postfix
+    fi
   else
     echo "$target is invalid! Quitting ..."
     exit 804
   fi
-  server_host="$user@$server$server_suffix"
+  server_host="$user@$server"
   if [ "true" == $deploy_from_local_files ]; then
+    upload_file $server_host $scripts_dir/$target/$startup_script ./
+    upload_file $server_host $scripts_dir/$target/$deploy_script ./
+    upload_file $server_host $scripts_dir/$target/$monitor_script ./
+    upload_file $server_host $config_dir/$target/$config_file ./
     for artifact in ${artifacts[@]}
     do
-      upload_file $server_host "../../$artifact/target/$artifact-$version.zip" ./
-      upload_file $server_host $startup_script ./
-      upload_file $server_host $deploy_script ./
-      upload_file $server_host $config_file ./
+      upload_file $server_host "../$artifact/target/$artifact-$version.zip" ./
     done
   fi
   for artifact in ${artifacts[@]}

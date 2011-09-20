@@ -67,7 +67,7 @@ public class WebServerMain {
 
 	private static void configure() {
 		try {
-			SystemPropertiesLoader.loadConfig();
+			SystemPropertiesLoader.loadWebConfig();
 		} catch (final Exception e) {
 			throw new RuntimeException(UNABLE_TO_START, e);
 		}
