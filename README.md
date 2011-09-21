@@ -10,7 +10,7 @@ Core concepts are:
 Content:
 --------
 * pom.xml: Parent pom for the entire project.
-* database/: Database artifact. Contains code for generating DB schema with Liquibase.
+* database/: Contains code for generating DB schema with Liquibase.
 * core/: Domain objects and Dao's.
 * webapp/: Embedded Jetty webapp artifact. Contains the deployable webapp artifact.
 * scripts/: Contains scripts for deploying, starting and monitoring of the webapp.
