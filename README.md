@@ -30,5 +30,6 @@ Usage:
 
 Releasing:
 ----------
-* <code>mvn -B release:prepare -Dintegration=false -Dgoals=deploy</deploy>
+* <code>mvn -B release:prepare -Dintegration=false</deploy>
 * <code>mvn release:perform -DconnectionUrl=scm:git:git@github.com:bekkopen/Continuous-Delivery-example.git -Dintegration=false -Dgoals=deploy</code>
+* <code>mvn clean deploy -Dintegration=false</code>
