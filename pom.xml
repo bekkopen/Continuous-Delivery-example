@@ -544,7 +544,7 @@
 		<!-- Plugin versions -->
 		<build-helper-plugin.version>1.5</build-helper-plugin.version>
 		<maven-processor-plugin.version>2.0.2</maven-processor-plugin.version>
-		<release-plugin.version>2.2.1</release-plugin.version>
+		<release-plugin.version>2.0-beta-9</release-plugin.version>
 		<compiler-plugin.version>2.3.2</compiler-plugin.version>
 		<exec-maven-plugin.version>1.2</exec-maven-plugin.version>
 		<maven-antrun-plugin.version>1.6</maven-antrun-plugin.version>
