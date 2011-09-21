@@ -152,62 +152,6 @@
 		</plugins>
 	</build>
 
-<<<<<<< HEAD
-=======
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>no.bekkopen.jetty.WebServerMain</mainClass>
-					<systemProperties>
-						<systemProperty>
-							<key>config</key>
-							<value>${project.build.testOutputDirectory}//webapp.properties</value>
-						</systemProperty>
-						<systemProperty>
-							<key>secrets</key>
-							<value>${project.build.testOutputDirectory}//secret.properties</value>
-						</systemProperty>
-					</systemProperties>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>appassembler-maven-plugin</artifactId>
-				<groupId>org.codehaus.mojo</groupId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>assemble</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<extraJvmArguments>-Dconfig=webapp.properties
-						-Dsecrets=..//secret.properties -Dfile.encoding=UTF-8</extraJvmArguments>
-					<programs>
-						<program>
-							<mainClass>no.bekkopen.jetty.WebServerMain</mainClass>
-							<name>webapp</name>
-							<platforms>
-								<platform>unix</platform>
-								<platform>windows</platform>
-							</platforms>
-						</program>
-					</programs>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
->>>>>>> Fixing a git merging fuck-up
 	<profiles>
 		<profile>
 			<id>assembly</id>
