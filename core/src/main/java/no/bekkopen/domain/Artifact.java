@@ -1,5 +1,6 @@
 package no.bekkopen.domain;
 
+import java.security.InvalidParameterException;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -23,11 +24,10 @@ public class Artifact {
 	private String version;
 	@Column(name = "packaging")
 	private String packaging;
-	
-	static final Set<String> VALID_PACKAGINGS = Sets.newHashSet("war", "jar", "ear", "zip", "pom");
-	
 
-	public void setId(long id) {
+	static final Set<String> VALID_PACKAGINGS = Sets.newHashSet("war", "jar", "ear", "zip", "pom");
+
+	public void setId(final long id) {
 		this.id = id;
 	}
 
@@ -39,7 +39,7 @@ public class Artifact {
 		return gropId;
 	}
 
-	public void setGropId(String gropId) {
+	public void setGropId(final String gropId) {
 		this.gropId = gropId;
 	}
 
@@ -47,7 +47,7 @@ public class Artifact {
 		return artifactId;
 	}
 
-	public void setArtifactId(String artifactId) {
+	public void setArtifactId(final String artifactId) {
 		this.artifactId = artifactId;
 	}
 
@@ -55,7 +55,7 @@ public class Artifact {
 		return version;
 	}
 
-	public void setVersion(String version) {
+	public void setVersion(final String version) {
 		this.version = version;
 	}
 
@@ -63,7 +63,10 @@ public class Artifact {
 		return packaging;
 	}
 
-	public void setPackaging(String packaging) {
+	public void setPackaging(final String packaging) {
+		if (VALID_PACKAGINGS.contains(packaging)) {
+			throw new InvalidParameterException(packaging + " er ikke gyldig! Gyldige verdier er: " + VALID_PACKAGINGS);
+		}
 		this.packaging = packaging;
 	}
 

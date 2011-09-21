@@ -1,14 +1,13 @@
 package no.bekkopen.domain;
 
-import no.bekkopen.dao.ArtifactDao;
-
-import org.junit.Test;
-
 import java.util.List;
 import java.util.logging.Logger;
 
+import no.bekkopen.dao.ArtifactDao;
+
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.IfProfileValue;
@@ -22,7 +21,7 @@ public class ArtifactIntegrationTest {
 
 	@Autowired
 	private ArtifactDao artifactDao;
-	private Logger logger = Logger.getLogger("myLog");
+	private final Logger logger = Logger.getLogger("ArtifactIntegrationTest.class");
 	private Long id;
 
 	@Before
@@ -33,7 +32,7 @@ public class ArtifactIntegrationTest {
 	@Test
 	public void listArtifactsTest() {
 		List<Artifact> artifacts = artifactDao.getArtifacts();
-        logger.info("Artifacts: " + artifacts.size());
+		logger.info("Artifacts: " + artifacts.size());
 		Assert.assertNotNull(artifacts);
 		Assert.assertEquals(4, artifacts.size());
 	}
