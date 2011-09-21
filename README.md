@@ -27,3 +27,8 @@ Usage:
 ------
 * Build it: <code>mvn clean install</code>
 * See Readme.md in sub projects for usage of the different artifacts.
+
+Releasing:
+----------
+* <code>mvn -B release:prepare -Dintegration=false -Dgoals=deploy</deploy>
+* <code>mvn release:perform -DconnectionUrl=scm:git:git@github.com:bekkopen/Continuous-Delivery-example.git -Dintegration=false -Dgoals=deploy</code>
