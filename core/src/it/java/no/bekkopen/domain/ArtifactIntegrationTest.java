@@ -31,8 +31,8 @@ public class ArtifactIntegrationTest {
 
 	@Test
 	public void listArtifactsTest() {
-		List<Artifact> artifacts = artifactDao.getArtifacts();
-		logger.info("Artifacts: " + artifacts.size());
+		List<Artifact> artifacts = artifactDao.findArtifacts();
+        logger.info("Artifacts: " + artifacts.size());
 		Assert.assertNotNull(artifacts);
 		Assert.assertEquals(4, artifacts.size());
 	}
@@ -40,7 +40,7 @@ public class ArtifactIntegrationTest {
 	@Test
 	public void getArtifactTest() {
 		Artifact artifact = artifactDao.getArtifact(id);
-		Assert.assertEquals(id.longValue(), artifact.getId());
+		Assert.assertEquals(id, artifact.getId());
 		Assert.assertEquals("no.bekkopen", artifact.getGropId());
 		Assert.assertEquals("webapp", artifact.getArtifactId());
 		Assert.assertEquals("0.1-SNAPSHOT", artifact.getVersion());

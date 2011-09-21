@@ -8,7 +8,6 @@ import javax.persistence.Query;
 
 import no.bekkopen.domain.Artifact;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,15 +26,26 @@ public class ArtifactDaoImpl implements ArtifactDao {
 	}
 
 	@Transactional
-	public List<Artifact> getArtifacts() throws DataAccessException {
-		Query query = getEntityManager().createQuery("select a from Artifact a");
+	public List<Artifact> findArtifacts() {
+		Query query = getEntityManager()
+				.createQuery("select a from Artifact a");
 		@SuppressWarnings("unchecked")
 		List<Artifact> resultList = query.getResultList();
 		return resultList;
 	}
 
 	@Transactional
-	public Artifact getArtifact(Long id) throws DataAccessException {
+	public Artifact getArtifact(Long id) {
 		return getEntityManager().find(Artifact.class, id);
+	}
+
+	@Transactional
+	public Artifact save(Artifact artifact) {
+		return getEntityManager().merge(artifact);
+	}
+
+	@Transactional
+	public void delete(Artifact artifact) {
+		getEntityManager().remove(artifact);
 	}
 }

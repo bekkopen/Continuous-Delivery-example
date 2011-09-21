@@ -15,7 +15,7 @@ import com.google.common.collect.Sets;
 public class Artifact {
 	@Id
 	@Column(name = "id")
-	private long id;
+	private Long id;
 	@Column(name = "groupId")
 	private String gropId;
 	@Column(name = "artifactId")
@@ -27,11 +27,11 @@ public class Artifact {
 
 	static final Set<String> VALID_PACKAGINGS = Sets.newHashSet("war", "jar", "ear", "zip", "pom");
 
-	public void setId(final long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
