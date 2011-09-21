@@ -9,6 +9,7 @@ Core concepts are:
 
 Content:
 --------
+* settings.xml.example: Example settings.xml. Rename and put in ~/.m2.
 * pom.xml: Parent pom for the entire project.
 * database/: Contains code for generating DB schema with Liquibase.
 * core/: Domain objects and Dao's.
