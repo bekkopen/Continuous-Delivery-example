@@ -18,9 +18,6 @@ public class ArtifactDaoImpl implements ArtifactDao {
 
 	private EntityManager em = null;
 
-	/**
-	 * Sets the entity manager.
-	 */
 	@PersistenceContext
 	public void setEntityManager(EntityManager em) {
 		this.em = em;

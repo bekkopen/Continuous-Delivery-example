@@ -10,7 +10,7 @@
 		<exclude-unlisted-classes />
 
 		<properties>
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 		</properties>
