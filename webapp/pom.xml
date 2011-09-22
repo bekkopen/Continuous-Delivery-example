@@ -15,11 +15,13 @@
 	<packaging>war</packaging>
 
 	<dependencies>
+		<!-- bekkopen -->
 		<dependency>
 			<groupId>no.bekkopen</groupId>
 			<artifactId>core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+
 		<!-- Jetty -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -45,7 +47,19 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 		</dependency>
-
+		<dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>com.springsource.org.apache.tiles</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>com.springsource.org.apache.tiles.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>com.springsource.org.apache.tiles.jsp</artifactId>
+        </dependency>
+        
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -67,6 +81,16 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springbyexample</groupId>
+			<artifactId>org.springbyexample.dynamic.tiles2</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>com.springsource.slf4j.api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 		<!-- Commons -->
 		<dependency>
@@ -77,29 +101,33 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.el</groupId>
+			<artifactId>com.springsource.org.apache.el</artifactId>
+		</dependency>
 
 		<!-- Logging -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
 		</dependency>
 
 
-        <!-- TEST -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium</artifactId>
-            <version>2.0a6</version>
-        </dependency>
-        <dependency>
-            <groupId>cuke4duke</groupId>
-            <artifactId>cuke4duke</artifactId>
-            <version>0.4.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-        </dependency>
+		<!-- TEST -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium</artifactId>
+			<version>2.0a6</version>
+		</dependency>
+		<dependency>
+			<groupId>cuke4duke</groupId>
+			<artifactId>cuke4duke</artifactId>
+			<version>0.4.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

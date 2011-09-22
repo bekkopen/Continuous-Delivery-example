@@ -9,43 +9,46 @@ import javax.persistence.Query;
 import no.bekkopen.domain.Artifact;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional(readOnly = true)
 public class ArtifactDaoImpl implements ArtifactDao {
 
-	protected EntityManager entityManager;
+	private EntityManager em = null;
 
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
-
+	/**
+	 * Sets the entity manager.
+	 */
 	@PersistenceContext
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
+	public void setEntityManager(EntityManager em) {
+		this.em = em;
 	}
 
-	@Transactional
+	@Override
 	public List<Artifact> findArtifacts() {
-		Query query = getEntityManager()
+		Query query = em
 				.createQuery("select a from Artifact a");
 		@SuppressWarnings("unchecked")
 		List<Artifact> resultList = query.getResultList();
 		return resultList;
 	}
 
-	@Transactional
-	public Artifact getArtifact(Long id) {
-		return getEntityManager().find(Artifact.class, id);
+	@Override
+	public Artifact findArtifact(Long id) {
+		return em.find(Artifact.class, id);
 	}
 
-	@Transactional
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Artifact save(Artifact artifact) {
-		return getEntityManager().merge(artifact);
+		return em.merge(artifact);
 	}
 
-	@Transactional
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public void delete(Artifact artifact) {
-		getEntityManager().remove(artifact);
+		em.remove(em.merge(artifact));
 	}
 }

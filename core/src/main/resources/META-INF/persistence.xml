@@ -2,20 +2,44 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
-	<persistence-unit name="bekkopenJpaPersistenceUnit"
-		transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="bekkopenJpaPersistenceUnit">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<class>no.bekkopen.domain.Artifact</class>
+
+		<exclude-unlisted-classes />
+
 		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 		</properties>
 	</persistence-unit>
 
-	<persistence-unit name="bekkopenTestJpaPersistenceUnit"
-		transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="bekkopenTestJpaPersistenceUnit">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<class>no.bekkopen.domain.Artifact</class>
+
+		<exclude-unlisted-classes />
 		<properties>
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
 		</properties>
 	</persistence-unit>
+
+	<persistence-unit name="bekkopenHSQLJpaPersistenceUnit">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<class>no.bekkopen.domain.Artifact</class>
+
+		<exclude-unlisted-classes />
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
+		</properties>
+	</persistence-unit>
+
 </persistence>
