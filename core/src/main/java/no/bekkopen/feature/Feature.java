@@ -9,7 +9,8 @@ public final class Feature {
 
     public enum Course implements Enabled{
         Save(true),
-        Delete(false);
+        Delete(false),
+        Attendants(true);
         private boolean courseEnabled = true;
         private boolean enabled;
 

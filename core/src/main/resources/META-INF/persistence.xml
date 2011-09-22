@@ -7,6 +7,7 @@
 
 		<class>no.bekkopen.domain.Artifact</class>
 		<class>no.bekkopen.domain.Course</class>
+		<class>no.bekkopen.domain.Attendant</class>
 
 		<exclude-unlisted-classes />
 
@@ -14,7 +15,7 @@
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
 		</properties>
 	</persistence-unit>
 
@@ -23,6 +24,8 @@
 
 		<class>no.bekkopen.domain.Artifact</class>
 		<class>no.bekkopen.domain.Course</class>
+        <class>no.bekkopen.domain.Attendant</class>
+
 
 		<exclude-unlisted-classes />
 		<properties>
