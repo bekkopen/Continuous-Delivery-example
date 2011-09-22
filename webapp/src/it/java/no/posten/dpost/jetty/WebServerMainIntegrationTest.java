@@ -38,13 +38,13 @@ public class WebServerMainIntegrationTest {
 	private File secretsFile;
 
 	public void setUp() throws IOException {
-		final File webappDir = lagFilITempDirOgReturnerParent("testwebapp/test/test/test.war");
+		final File webappDir = createFileInTempDirAndReturnParent("testwebapp/test/test/test.war");
 		configFile = TMP.newFile("testwebapp/dpost.properties");
 		secretsFile = TMP.newFile("testwebapp/secrets.properties");
 		System.setProperty("config", configFile.getAbsolutePath());
 		System.setProperty("secrets", secretsFile.getAbsolutePath());
 		System.setProperty("basedir", webappDir.getAbsolutePath());
-		port1 = finnLedigPort(port1);
+		port1 = findAvailablePort(port1);
 		FileUtils.writeStringToFile(configFile, "jetty.port=" + port1);
 		FileUtils.writeStringToFile(secretsFile, "secret.inside=secret");
 	}
@@ -58,36 +58,36 @@ public class WebServerMainIntegrationTest {
 	}
 
 	@Test
-	public void skalKasteExceptionOmConfigIkkeErSattSomSystemProperty() throws Exception {
+	public void shouldThrowExceptionIfConfigNotSetAsSystemProperty() throws Exception {
 		setUp();
 		try {
 			System.clearProperty("config");
-			startOgKobleTilSocket();
-			fail("Skulle kastet Exception.");
+			startAndConnectToSocket();
+			fail("Should have thrown Exception.");
 		} catch (final Exception e) {
 			assertTrue(StringUtils.contains(e.getCause().getMessage(), "System property \"config\" undefined."));
 		}
 	}
 
 	@Test
-	public void skalKasteExceptionOmSecretsIkkeErSattSomSystemProperty() throws Exception {
+	public void shouldThrowExceptionIfSecretsNotSetAsSystemProperty() throws Exception {
 		setUp();
 		try {
 			System.clearProperty("secrets");
-			startOgKobleTilSocket();
-			fail("Skulle kastet Exception.");
+			startAndConnectToSocket();
+			fail("Should have thrown Exception.");
 		} catch (final Exception e) {
 			assertTrue(StringUtils.contains(e.getCause().getMessage(), "System property \"secrets\" undefined."));
 		}
 	}
 
 	@Test
-	public void skalKasteExceptionDersomConfigFilIkkeEksisterer() throws Exception {
+	public void shouldThrowExceptionIfConfigFileDoesNotExist() throws Exception {
 		setUp();
 		FileUtils.forceDelete(configFile);
 		try {
-			startOgKobleTilSocket();
-			fail("Skulle kastet Exception");
+			startAndConnectToSocket();
+			fail("Should have thrown Exception");
 		} catch (final Exception e) {
 			final String msg = e.getCause().getMessage();
 			logger.info(msg);
@@ -98,12 +98,12 @@ public class WebServerMainIntegrationTest {
 	}
 
 	@Test
-	public void skalKasteExceptionDersomSecretsFilIkkeEksisterer() throws Exception {
+	public void shouldThrowExceptionIfSecretsFileDoesNotExist() throws Exception {
 		setUp();
 		FileUtils.forceDelete(secretsFile);
 		try {
-			startOgKobleTilSocket();
-			fail("Skulle kastet Exception");
+			startAndConnectToSocket();
+			fail("Should have thrown Exception");
 		} catch (final Exception e) {
 			final String msg = e.getCause().getMessage();
 			logger.info(msg);
@@ -115,14 +115,14 @@ public class WebServerMainIntegrationTest {
 	}
 
 	@Test
-	public void validerKonfigurasjon() throws Exception {
+	public void validateConfig() throws Exception {
 		setUp();
-		startOgKobleTilSocket();
+		startAndConnectToSocket();
 
 		// Server
 		final Server server = WebServerMain.getJettyServer();
 		assertFalse(server.getSendServerVersion());
-		assertTrue("Port skulle vært " + port1 + ", men var " + server.getConnectors()[0].getPort(),
+		assertTrue("Expected port " + port1 + ", but was " + server.getConnectors()[0].getPort(),
 				port1 == server.getConnectors()[0].getPort());
 		assertEquals("secret", System.getProperty("secret.inside"));
 		assertTrue(1000 == server.getGracefulShutdown());
@@ -134,72 +134,31 @@ public class WebServerMainIntegrationTest {
 	@Test
 	public void testStart() throws Exception {
 		setUp();
-		startOgKobleTilSocket();
+		startAndConnectToSocket();
 		final int hashcode = WebServerMain.getJettyServer().hashCode();
 		logger.info("Server hashcode: " + hashcode);
-		startOgKobleTilSocket();
+		startAndConnectToSocket();
 		assertTrue(hashcode == WebServerMain.getJettyServer().hashCode());
 		WebServerMain.stop();
-		startOgKobleTilSocket();
-		logger.info("Ikke samme server, hashcode: " + WebServerMain.getJettyServer().hashCode());
+		startAndConnectToSocket();
+		logger.info("Not same server, hashcode: " + WebServerMain.getJettyServer().hashCode());
 		assertFalse(hashcode == WebServerMain.getJettyServer().hashCode());
 	}
 
-	@Test
-	public void testStartMedEttNivaasBasedir() throws IOException {
-		setUp();
-		final File baseDir = lagFilITempDirOgReturnerParent("/test/test.war");
-		System.setProperty("basedir", baseDir.getAbsolutePath());
-		try {
-			startOgKobleTilSocket();
-		} catch (final Exception e) {
-			assertEquals(
-					"artifactId (context.root) er : null. 'basedir' må ha minst to nivåer (f. eks. /stiTil/basedir). Kan ikke starte.",
-					e.getMessage());
-		} finally {
-			FileUtils.forceDelete(baseDir);
+	private File createFileInTempDirAndReturnParent(final String pathToFile) throws IOException {
+		final String[] pathElements = pathToFile.split("/");
+		final int lastElement = pathElements.length - 1;
+		final StringBuilder path = new StringBuilder();
+		for (int i = 0; i < lastElement; i++) {
+			path.append(pathElements[i]);
+			TMP.newFolder(path.toString());
+			path.append("/");
 		}
-	}
-
-	@Test
-	public void testStartMedToNivaasBasedir() throws IOException {
-		setUp();
-		final File baseDir = lagFilITempDirOgReturnerParent("/test/test.war");
-		System.setProperty("basedir", baseDir.getAbsolutePath());
-		try {
-			startOgKobleTilSocket();
-		} catch (final Exception e) {
-			assertEquals(
-					"artifactId (context.root) er : null. 'basedir' må ha minst to nivåer (f. eks. /stiTil/basedir). Kan ikke starte.",
-					e.getMessage());
-		} finally {
-			FileUtils.forceDelete(baseDir);
-		}
-	}
-
-	@Test
-	public void testStartMedTreNivaasBasedir() throws Exception {
-		setUp();
-		final File baseDir = lagFilITempDirOgReturnerParent("/test/test/test.war");
-		System.setProperty("basedir", baseDir.getAbsolutePath());
-		startOgKobleTilSocket();
-		FileUtils.forceDelete(baseDir);
-	}
-
-	private File lagFilITempDirOgReturnerParent(final String stiTilFil) throws IOException {
-		final String[] stielementer = stiTilFil.split("/");
-		final int sisteElement = stielementer.length - 1;
-		final StringBuilder sti = new StringBuilder();
-		for (int i = 0; i < sisteElement; i++) {
-			sti.append(stielementer[i]);
-			TMP.newFolder(sti.toString());
-			sti.append("/");
-		}
-		final File fil = TMP.newFile(sti + stielementer[sisteElement]);
+		final File fil = TMP.newFile(path + pathElements[lastElement]);
 		return fil.getParentFile();
 	}
 
-	private void startOgKobleTilSocket() throws Exception {
+	private void startAndConnectToSocket() throws Exception {
 		final String[] args = {};
 		WebServerMain.main(args);
 		assertTrue(WebServerMain.getJettyServer().isRunning());
@@ -208,11 +167,11 @@ public class WebServerMainIntegrationTest {
 			final Socket socket = new Socket("127.0.0.1", localPort);
 			socket.close();
 		} catch (final Exception e) {
-			fail("Klarte ikke koble til JettyServer sin port: " + localPort);
+			fail("Could not connect to Jetty port: " + localPort);
 		}
 	}
 
-	private int finnLedigPort(final int port) {
+	private int findAvailablePort(final int port) {
 		int newPort = port;
 		while (!isPortAvailable(newPort)) {
 			newPort++;
