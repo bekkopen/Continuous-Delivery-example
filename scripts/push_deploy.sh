@@ -136,18 +136,14 @@ do
     for artifact in ${artifacts[@]}
     do
       upload_file $server_host "../$artifact/target/$artifact-$version.zip" ./
-      deploy_cmds[$[${#deploy_cmds[@]}+1]]="ssh -tt $server_host \"nohup ./deploy.sh $artifact $version > /dev/null 2>&1 </dev/null\""
+      cmd="ssh -tt $server_host \"nohup ./deploy.sh $artifact $version > /dev/null 2>&1 </dev/null\""
+      echo "Running: $cmd"
+      eval $cmd
+      response=$?
+      if [ $response -ne 0 ]; then
+        echo "$cmd failed with exit code $response Quitting ..."
+        exit 805
+      fi
     done
-  fi
-done
-
-for cmd in "${deploy_cmds[@]}"
-do
-  echo "Running: $cmd"
-  eval $cmd
-  response=$?
-  if [ $response -ne 0 ]; then
-    echo "$cmd failed with exit code $response Quitting ..."
-    exit 805
   fi
 done

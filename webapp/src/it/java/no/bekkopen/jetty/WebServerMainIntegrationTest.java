@@ -38,7 +38,10 @@ public class WebServerMainIntegrationTest {
 	private File configFile;
 	private File secretsFile;
 
+	private String hostname;
+
 	public void setUp() throws IOException {
+		hostname = InetAddress.getLocalHost().getHostName();
 		final File webappDir = createFileInTempDirAndReturnParent("testwebapp/test/test/test.war");
 		configFile = TMP.newFile("testwebapp/dpost.properties");
 		secretsFile = TMP.newFile("testwebapp/secrets.properties");
@@ -47,7 +50,7 @@ public class WebServerMainIntegrationTest {
 		System.setProperty("basedir", webappDir.getAbsolutePath());
 		port1 = findAvailablePort(port1);
 		FileUtils.writeStringToFile(configFile, "jetty.port=" + port1);
-		FileUtils.writeStringToFile(secretsFile, "hostname=" + InetAddress.getLocalHost().getHostName());
+		FileUtils.writeStringToFile(secretsFile, "hostname=" + hostname);
 		FileUtils.writeStringToFile(secretsFile, "secret.inside=secret");
 	}
 
