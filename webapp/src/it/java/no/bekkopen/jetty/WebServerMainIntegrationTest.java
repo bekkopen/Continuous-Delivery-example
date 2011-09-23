@@ -1,4 +1,4 @@
-package no.posten.dpost.jetty;
+package no.bekkopen.jetty;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
@@ -46,6 +47,7 @@ public class WebServerMainIntegrationTest {
 		System.setProperty("basedir", webappDir.getAbsolutePath());
 		port1 = findAvailablePort(port1);
 		FileUtils.writeStringToFile(configFile, "jetty.port=" + port1);
+		FileUtils.writeStringToFile(secretsFile, "hostname=" + InetAddress.getLocalHost().getHostName());
 		FileUtils.writeStringToFile(secretsFile, "secret.inside=secret");
 	}
 

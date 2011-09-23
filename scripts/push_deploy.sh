@@ -136,12 +136,9 @@ do
     for artifact in ${artifacts[@]}
     do
       upload_file $server_host "../$artifact/target/$artifact-$version.zip" ./
+      deploy_cmds[$[${#deploy_cmds[@]}+1]]="ssh -tt $server_host \"nohup ./deploy.sh $artifact $version > /dev/null 2>&1 </dev/null\""
     done
   fi
-  for artifact in ${artifacts[@]}
-  do
-    deploy_cmds[$[${#deploy_cmds[@]}+1]]="ssh -tt $server_host \"nohup ./deploy.sh $artifact $version > /dev/null 2>&1 </dev/null\""
-  done
 done
 
 for cmd in "${deploy_cmds[@]}"
