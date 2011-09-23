@@ -8,13 +8,13 @@ public final class Feature {
     }
 
     public enum Course implements Enabled{
-        Save(true),
-        Delete(false);
+        Save(System.getProperty("course.save.enabled", "false")),
+        Delete(System.getProperty("course.delete.enabled", "false"));
         private boolean courseEnabled = true;
         private boolean enabled;
 
-        Course(boolean enabled) {
-            this.enabled = enabled;
+        Course(String enabled) {
+            this.enabled = new Boolean(enabled);
         }
 
         public boolean isEnabled() {
