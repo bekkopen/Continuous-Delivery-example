@@ -4,6 +4,7 @@ import java.util.List;
 
 import no.bekkopen.dao.ArtifactDao;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,13 +30,14 @@ public class ArtifactIntegrationTest extends AbstractTransactionalJUnit4SpringCo
 
 	@Before
 	public void init() {
-		id = 1L;
-		List<Artifact> artifacts = artifactDao.findArtifacts();
-		numberOfArtefacts = artifacts.size();
-        logger.info("Artifacts: " + artifacts.size());
-		Assert.assertNotNull(artifacts);
+		Artifact artifact = new Artifact();
+		artifact.setGroupId("no.bekkopen");
+		artifact.setArtifactId("webapp");
+		artifact.setVersion("0.1-SNAPSHOT");
+		artifact.setPackaging("zip");
+		id = artifactDao.save(artifact).getId();
 	}
-
+	
 	@Test
 	public void getArtifactTest() {
 		Artifact artifact = artifactDao.findArtifact(id);
@@ -48,6 +50,7 @@ public class ArtifactIntegrationTest extends AbstractTransactionalJUnit4SpringCo
 	
 	@Test
 	public void saveArtifactTest() {
+		numberOfArtefacts = artifactDao.findArtifacts().size();
 		Artifact newArtifact = new Artifact();
 		newArtifact.setGroupId("no.bekkopen");
 		newArtifact.setArtifactId("webapp");
