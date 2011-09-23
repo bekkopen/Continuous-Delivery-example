@@ -5,7 +5,7 @@
 candidate_artifacts=( "webapp" )
 servers=( "localhost" "node1" "node2" "node3")
 prod_servers=( "node1" "node2" "node3")
-server_postfix=".morisbak.net"
+server_postfix=".bekkopen.no"
 user="bekkopen"
 startup_script="startup.sh"
 deploy_script="deploy.sh"

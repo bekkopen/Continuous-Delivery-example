@@ -22,11 +22,11 @@
 	<distributionManagement>
 		<repository>
 			<id>bekkopen-nexus</id>
-			<url>http://node1.morisbak.net:8081/nexus/content/repositories/releases</url>
+			<url>http://node1.bekkopen.no:8081/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>bekkopen-nexus</id>
-			<url>dav:http://node1.morisbak.net:8081/nexus/content/repositories/snapshots</url>
+			<url>dav:http://node1.bekkopen.no:8081/nexus/content/repositories/snapshots</url>
 			<uniqueVersion>true</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
@@ -34,7 +34,7 @@
 	<repositories>
 		<repository>
 			<id>bekkopen-nexus</id>
-			<url>http://node1.morisbak.net:8081/nexus/content/groups/public</url>
+			<url>http://node1.bekkopen.no:8081/nexus/content/groups/public</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -71,7 +71,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>bekkopen-nexus</id>
-			<url>http://node1.morisbak.net:8081/nexus/content/groups/public</url>
+			<url>http://node1.bekkopen.no:8081/nexus/content/groups/public</url>
 		</pluginRepository>
 		<pluginRepository>
 			<id>sonatype.releases</id>
@@ -89,7 +89,7 @@
 
 	<ciManagement>
 		<system>jenkins</system>
-		<url>http://node2.morisbak.net:8080</url>
+		<url>http://node2.bekkopen.no:8080</url>
 	</ciManagement>
 
 	<dependencyManagement>
@@ -515,7 +515,7 @@
 					<version>${sql-maven-plugin.version}</version>
 					<configuration>
 						<driver>com.mysql.jdbc.Driver</driver>
-						<url>jdbc:mysql://node3.morisbak.net/bekkopen</url>
+						<url>jdbc:mysql://node3.bekkopen.no/bekkopen</url>
 						<username>bekkopen</username>
 						<password>hemmelig</password>
 					</configuration>
