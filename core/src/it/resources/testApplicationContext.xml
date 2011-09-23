@@ -18,7 +18,7 @@
 	</bean>
 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		p:dataSource-ref="dataSource" p:persistenceUnitName="bekkopenTestJpaPersistenceUnit" />
+		p:dataSource-ref="dataSource" p:persistenceUnitName="${persistenceUnit}" />
 
 
 
