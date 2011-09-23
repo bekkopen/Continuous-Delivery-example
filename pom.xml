@@ -514,10 +514,10 @@
 					<artifactId>sql-maven-plugin</artifactId>
 					<version>${sql-maven-plugin.version}</version>
 					<configuration>
-						<driver>${jdbc.driverClassName}</driver>
-						<url>${jdbc.uri}</url>
-						<username>${jdbc.user}</username>
-						<password>${jdbc.password}</password>
+						<driver>com.mysql.jdbc.Driver</driver>
+						<url>jdbc:mysql://node3.morisbak.net/bekkopen</url>
+						<username>bekkopen</username>
+						<password>hemmelig</password>
 					</configuration>
 					<executions>
 						<execution>

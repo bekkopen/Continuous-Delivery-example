@@ -21,7 +21,7 @@
  
     <bean id="tilesViewResolver"
           class="org.springframework.web.servlet.view.UrlBasedViewResolver"
-          p:viewClass="org.springbyexample.web.servlet.view.tiles2.DynamicTilesView"
+          p:viewClass="no.bekkopen.web.view.tiles.DynamicTilesView"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
 
