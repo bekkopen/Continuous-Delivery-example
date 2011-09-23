@@ -50,8 +50,8 @@ public class WebServerMainIntegrationTest {
 		System.setProperty("basedir", webappDir.getAbsolutePath());
 		port1 = findAvailablePort(port1);
 		FileUtils.writeStringToFile(configFile, "jetty.port=" + port1);
-		FileUtils.writeStringToFile(secretsFile, "hostname=" + hostname);
-		FileUtils.writeStringToFile(secretsFile, "secret.inside=secret");
+		FileUtils.writeStringToFile(secretsFile, "hostname=" + hostname + "\nsecret.inside=secret");
+		System.out.println("Contents of file: " + FileUtils.readFileToString(secretsFile));
 	}
 
 	@After
