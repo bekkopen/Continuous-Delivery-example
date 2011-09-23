@@ -8,8 +8,8 @@
 	<name>Bekk Open: Parent POM</name>
 
 	<modules>
-		<module>database</module>
 		<module>core</module>
+		<module>database</module>
 		<module>webapp</module>
 	</modules>
 
