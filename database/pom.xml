@@ -10,6 +10,7 @@
 	</parent>
 
 	<artifactId>database</artifactId>
+	<name>Bekk Open: Generate DB schema with Liquibase</name>
 
 	<dependencies>
 		<dependency>

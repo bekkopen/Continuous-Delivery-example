@@ -11,6 +11,7 @@
 	</parent>
 
 	<artifactId>core</artifactId>
+	<name>Bekk Open: Domain and DAO's</name>
 
 	<dependencies>
 		<dependency>

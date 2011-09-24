@@ -6,6 +6,22 @@
 	<version>0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Bekk Open: Parent POM</name>
+	<url>https://github.com/bekkopen/Continuous-Delivery-example</url>
+	<description>Example Java webapp infrastructure for Continuous Delivery.</description>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 
 	<modules>
 		<module>core</module>
@@ -20,21 +36,24 @@
 	</scm>
 
 	<distributionManagement>
+		<site>
+			<id>Continuous-Delivery-example</id>
+			<url>http://bekkopen.github.com/Continuous-Delivery-example/</url>
+		</site>
 		<repository>
-			<id>bekkopen-nexus</id>
-			<url>http://node1.bekkopen.no:8081/nexus/content/repositories/releases</url>
+			<id>sonatype-nexus-staging</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
 		</repository>
 		<snapshotRepository>
-			<id>bekkopen-nexus</id>
-			<url>dav:http://node1.bekkopen.no:8081/nexus/content/repositories/snapshots</url>
-			<uniqueVersion>true</uniqueVersion>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
 	<repositories>
 		<repository>
-			<id>bekkopen-nexus</id>
-			<url>http://node1.bekkopen.no:8081/nexus/content/groups/public</url>
+			<id>sonatype-nexus-public</id>
+			<url>https://oss.sonatype.org/content/groups/public</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -43,8 +62,12 @@
 			</snapshots>
 		</repository>
 		<repository>
-			<id>sonatype.releases</id>
+			<id>sonatype-nexus-releases</id>
 			<url>https://oss.sonatype.org/content/repositories/releases</url>
+		</repository>
+		<repository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</repository>
 		<repository>
 			<id>sf.net-mirror</id>
@@ -59,8 +82,8 @@
 			<url>http://repository.codehaus.org</url>
 		</repository>
 		<repository>
-			<id>springbyexample.org</id>
-			<url>http://www.springbyexample.org/maven/repo</url>
+			<id>cukes</id>
+			<url>http://cukes.info/maven</url>
 		</repository>
 		<repository>
 			<id>com.springsource.repository.bundles.external</id>
@@ -70,27 +93,23 @@
 
 	<pluginRepositories>
 		<pluginRepository>
-			<id>bekkopen-nexus</id>
-			<url>http://node1.bekkopen.no:8081/nexus/content/groups/public</url>
+			<id>sonatype-nexus-public</id>
+			<url>https://oss.sonatype.org/content/groups/public</url>
 		</pluginRepository>
 		<pluginRepository>
-			<id>sonatype.releases</id>
+			<id>sonatype-nexus-releases</id>
 			<url>https://oss.sonatype.org/content/repositories/releases</url>
 		</pluginRepository>
 		<pluginRepository>
 			<id>maven-annotation</id>
 			<url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo</url>
 		</pluginRepository>
-		<pluginRepository>
-			<id>cukes</id>
-			<url>http://cukes.info/maven</url>
-		</pluginRepository>
 	</pluginRepositories>
 
-	<ciManagement>
-		<system>jenkins</system>
-		<url>http://node2.bekkopen.no:8080</url>
-	</ciManagement>
+	<!-- <ciManagement> -->
+	<!-- <system>jenkins</system> -->
+	<!-- <url>http://jenkins.bekkopen.no:8080</url> -->
+	<!-- </ciManagement> -->
 
 	<dependencyManagement>
 		<dependencies>
@@ -183,11 +202,6 @@
 				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.springbyexample</groupId>
-				<artifactId>org.springbyexample.dynamic.tiles2</artifactId>
-				<version>${springbyexample.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjrt</artifactId>
 				<version>${aspectjrt.version}</version>
@@ -272,20 +286,6 @@
 				<version>${logback.version}</version>
 			</dependency>
 
-			<!-- Testing -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-test</artifactId>
-				<version>${spring.version}</version>
-				<scope>test</scope>
-			</dependency>
-
 			<!-- Commons -->
 			<dependency>
 				<groupId>commons-io</groupId>
@@ -302,6 +302,7 @@
 				<artifactId>com.springsource.org.apache.el</artifactId>
 				<version>${springsource-el.version}</version>
 			</dependency>
+
 			<!-- Others -->
 			<dependency>
 				<groupId>joda-time</groupId>
@@ -318,20 +319,31 @@
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
 			</dependency>
+
+			<!-- Testing -->
 			<dependency>
-				<groupId>javax.security</groupId>
-				<artifactId>jacc</artifactId>
-				<version>${jacc.version}</version>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.codehaus.openxma</groupId>
-				<artifactId>dsl-platform</artifactId>
-				<version>${dsl-platform}</version>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>javassist</groupId>
-				<artifactId>javassist</artifactId>
-				<version>${javassist.version}</version>
+				<groupId>org.seleniumhq.selenium</groupId>
+				<artifactId>selenium</artifactId>
+				<version>${selenium.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>cuke4duke</groupId>
+				<artifactId>cuke4duke</artifactId>
+				<version>${cuke4duke.version}</version>
+				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -505,6 +517,19 @@
 										<ignore>true</ignore>
 									</action>
 								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-enforcer-plugin</artifactId>
+										<versionRange>[1.0,)</versionRange>
+										<goals>
+											<goal>enforce</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
@@ -515,9 +540,9 @@
 					<version>${sql-maven-plugin.version}</version>
 					<configuration>
 						<driver>com.mysql.jdbc.Driver</driver>
-						<url>jdbc:mysql://node3.bekkopen.no/bekkopen</url>
+						<url>jdbc:mysql://mysql.bekkopen.no/bekkopen</url>
 						<username>bekkopen</username>
-						<password>hemmelig</password>
+						<password>secret</password>
 					</configuration>
 					<executions>
 						<execution>
@@ -588,6 +613,36 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${gpg-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<properties>
 		<!-- Dependency versions -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -622,6 +677,8 @@
 		<jacc.version>1.0</jacc.version>
 		<tiles.version>2.1.3</tiles.version>
 		<version.hsqldb>2.0.0</version.hsqldb>
+		<selenium.version>2.0a6</selenium.version>
+		<cuke4duke.version>0.4.4</cuke4duke.version>
 		<!-- Plugin versions -->
 		<build-helper-plugin.version>1.5</build-helper-plugin.version>
 		<maven-processor-plugin.version>2.0.2</maven-processor-plugin.version>
@@ -632,6 +689,7 @@
 		<gmaven-plugin.version>1.3</gmaven-plugin.version>
 		<m2e-lifecycle-mapping.version>1.0.0</m2e-lifecycle-mapping.version>
 		<sql-maven-plugin.version>1.4</sql-maven-plugin.version>
+		<gpg-plugin.version>1.1</gpg-plugin.version>
 		<!-- Extension versions -->
 		<wagon-webdav-jackrabbit.version>1.0</wagon-webdav-jackrabbit.version>
 		<!-- Other properties -->
@@ -647,8 +705,33 @@
 		<jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
 		<persistenceUnit>bekkopenHSQLJpaPersistenceUnit</persistenceUnit>
 		<integration>true</integration>
-
-		<!-- cucumber properties -->
-		<cuke4duke.version>0.4.4</cuke4duke.version>
 	</properties>
+
+	<organization>
+		<name>BEKK open source</name>
+		<url>http://github.com/bekkopen</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>steinim</id>
+			<name>Stein Inge Morisbak</name>
+			<email>stein.inge.morisbak (AT) BEKK.no</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<organization>BEKK</organization>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>eirikwang</id>
+			<name>Eirik Wang</name>
+			<email>eirik.wang (AT) BEKK.no</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<organization>BEKK</organization>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
 </project>

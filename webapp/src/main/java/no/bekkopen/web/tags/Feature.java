@@ -14,7 +14,9 @@ import static org.springframework.util.ReflectionUtils.findMethod;
  */
 public class Feature extends TagSupport {
 
-    private String name;
+	private static final long serialVersionUID = 2935318125797185917L;
+	
+	private String name;
     private Enabled enabled;
 
     public String getName() {

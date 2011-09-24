@@ -72,7 +72,7 @@ public class DynamicTilesView extends AbstractUrlBasedView {
 	/**
 	 * Renders output using Tiles.
 	 */
-	protected void renderMergedOutputModel(Map model,
+	protected void renderMergedOutputModel(Map<String, Object> model,
 	                                       HttpServletRequest request, HttpServletResponse response)
 	       throws Exception {
 
