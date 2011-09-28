@@ -30,9 +30,9 @@
 	</modules>
 
 	<scm>
-		<connection>scm:git:git@github.com:bekkopen/ContinuousDelivery-example.git</connection>
-		<developerConnection>scm:git:git@github.com:bekkopen/ContinuousDelivery-example.git</developerConnection>
-		<url>scm:git:git@github.com:bekkopen/ContinuousDelivery-example</url>
+		<connection>scm:git:git@github.com:bekkopen/Continuous-Delivery-example.git</connection>
+		<developerConnection>scm:git:git@github.com:bekkopen/Continuous-Delivery-example.git</developerConnection>
+		<url>scm:git:git@github.com:bekkopen/Continuous-Delivery-example</url>
 	</scm>
 
 	<distributionManagement>
