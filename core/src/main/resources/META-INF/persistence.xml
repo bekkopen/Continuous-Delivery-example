@@ -5,8 +5,8 @@
 	<persistence-unit name="bekkopenJpaPersistenceUnit">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-		<class>no.bekk.bekkopen.domain.Artifact</class>
-		<class>no.bekk.bekkopen.domain.Course</class>
+		<class>no.bekk.bekkopen.cde.domain.Artifact</class>
+		<class>no.bekk.bekkopen.cde.domain.Course</class>
 
 		<exclude-unlisted-classes />
 
@@ -21,8 +21,8 @@
 	<persistence-unit name="bekkopenHSQLJpaPersistenceUnit">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-		<class>no.bekk.bekkopen.domain.Artifact</class>
-		<class>no.bekk.bekkopen.domain.Course</class>
+		<class>no.bekk.bekkopen.cde.domain.Artifact</class>
+		<class>no.bekk.bekkopen.cde.domain.Course</class>
 
 		<exclude-unlisted-classes />
 

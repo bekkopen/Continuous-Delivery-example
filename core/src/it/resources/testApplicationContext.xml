@@ -22,7 +22,7 @@
 
 
 
-	<context:component-scan base-package="no.bekk.bekkopen.dao">
+	<context:component-scan base-package="no.bekk.bekkopen.cde.dao">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 	</context:component-scan>
 

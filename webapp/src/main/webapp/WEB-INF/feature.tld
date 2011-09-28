@@ -15,7 +15,7 @@
         Checks if feature is enabled
     </description>
     <name>enabled</name>
-    <tag-class>no.bekk.bekkopen.web.tags.Feature</tag-class>
+    <tag-class>no.bekk.bekkopen.cde.web.tags.Feature</tag-class>
     <body-content>JSP</body-content>
     <attribute>
         <description>
