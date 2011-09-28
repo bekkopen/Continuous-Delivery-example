@@ -30,7 +30,7 @@
 	</modules>
 
 	<scm>
-		<connection>scm:git:git@github.com/bekkopen:ContinuousDelivery-example.git</connection>
+		<connection>scm:git:git@github.com:bekkopen/ContinuousDelivery-example.git</connection>
 		<developerConnection>scm:git:git@github.com:bekkopen/ContinuousDelivery-example.git</developerConnection>
 		<url>scm:git:git@github.com:bekkopen/ContinuousDelivery-example</url>
 	</scm>
