@@ -450,16 +450,6 @@
 						</execution>
 					</executions>
 				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-release-plugin</artifactId>
-					<version>${release-plugin.version}</version>
-					<configuration>
-						<scmCommentPrefix>Release:</scmCommentPrefix>
-						<arguments>-Dintegration=${integration}</arguments>
-					</configuration>
-				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>appassembler-maven-plugin</artifactId>
@@ -607,6 +597,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<scmCommentPrefix>Release:</scmCommentPrefix>
+					<arguments>-Dintegration=${integration} -DperformRelease=true</arguments>
+					<goals>deploy</goals>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
