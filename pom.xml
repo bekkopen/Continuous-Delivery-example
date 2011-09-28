@@ -1,8 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>no.bekk.bekkopen.cde</groupId>
 	<artifactId>parent</artifactId>
-	<version>0.3-SNAPSHOT</version>
+	<version>0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Bekk Open: Parent POM</name>
 	<url>https://github.com/bekkopen/Continuous-Delivery-example</url>
@@ -526,7 +527,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore />
+										<ignore></ignore>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -699,7 +700,7 @@
 		<host.user>bekkopen</host.user>
 		<host.path>/server/bekkopen</host.path>
 		<jdbc.user>sa</jdbc.user>
-		<jdbc.password />
+		<jdbc.password></jdbc.password>
 		<jdbc.uri>jdbc:hsqldb:./hsqldb/bekkopen</jdbc.uri>
 		<jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
 		<persistenceUnit>bekkopenHSQLJpaPersistenceUnit</persistenceUnit>
