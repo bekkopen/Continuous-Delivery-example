@@ -34,7 +34,7 @@
 			<directory>${project.build.directory}/classes</directory>
 			<includes>
 				<include>logback.xml</include>
-				<include>no/bekkopen/jetty/**/*.class</include>
+				<include>no/bekk/bekkopen/jetty/**/*.class</include>
 			</includes>
 			<outputDirectory>/</outputDirectory>
 			<directoryMode>0755</directoryMode>

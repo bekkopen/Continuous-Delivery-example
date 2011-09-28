@@ -1,8 +1,8 @@
-package no.bekkopen.domain;
+package no.bekk.bekkopen.domain;
 
 import java.util.List;
 
-import no.bekkopen.dao.ArtifactDao;
+import no.bekk.bekkopen.dao.ArtifactDao;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,7 +30,7 @@ public class ArtifactIntegrationTest extends AbstractTransactionalJUnit4SpringCo
 	@Before
 	public void init() {
 		Artifact artifact = new Artifact();
-		artifact.setGroupId("no.bekkopen");
+		artifact.setGroupId("no.bekk.bekkopen");
 		artifact.setArtifactId("webapp");
 		artifact.setVersion("0.1-SNAPSHOT");
 		artifact.setPackaging("zip");
@@ -41,7 +41,7 @@ public class ArtifactIntegrationTest extends AbstractTransactionalJUnit4SpringCo
 	public void getArtifactTest() {
 		Artifact artifact = artifactDao.findArtifact(id);
 		Assert.assertEquals(id, artifact.getId());
-		Assert.assertEquals("no.bekkopen", artifact.getGroupId());
+		Assert.assertEquals("no.bekk.bekkopen", artifact.getGroupId());
 		Assert.assertEquals("webapp", artifact.getArtifactId());
 		Assert.assertEquals("0.1-SNAPSHOT", artifact.getVersion());
 		Assert.assertEquals("zip", artifact.getPackaging());
@@ -51,7 +51,7 @@ public class ArtifactIntegrationTest extends AbstractTransactionalJUnit4SpringCo
 	public void saveArtifactTest() {
 		numberOfArtefacts = artifactDao.findArtifacts().size();
 		Artifact newArtifact = new Artifact();
-		newArtifact.setGroupId("no.bekkopen");
+		newArtifact.setGroupId("no.bekk.bekkopen");
 		newArtifact.setArtifactId("webapp");
 		newArtifact.setVersion("0.2-SNAPSHOT");
 		newArtifact.setPackaging("war");

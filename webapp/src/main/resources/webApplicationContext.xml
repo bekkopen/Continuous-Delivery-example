@@ -9,7 +9,7 @@
 	<!-- bean post-processor for annotations -->
 	<context:annotation-config />
 
-	<context:component-scan base-package="no.bekkopen.web.controller" />
+	<context:component-scan base-package="no.bekk.bekkopen.web.controller" />
 
 	<context:property-placeholder
 		system-properties-mode="OVERRIDE"/>

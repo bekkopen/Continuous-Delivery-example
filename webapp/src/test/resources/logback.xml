@@ -8,7 +8,7 @@
         </layout>
     </appender>
 
-    <logger name="no.bekkopen" level="TRACE"/>
+    <logger name="no.bekk.bekkopen" level="TRACE"/>
 
     <root level="debug">
         <appender-ref ref="STDOUT"/>
