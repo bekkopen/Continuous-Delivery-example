@@ -28,3 +28,4 @@ parent.iws
 target/
 /logs
 core/src/main/generated-java/
+webapp/hsqldb/*
