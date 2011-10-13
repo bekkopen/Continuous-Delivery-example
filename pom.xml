@@ -703,7 +703,7 @@
 		<junit.version>4.9</junit.version>
 		<surefire.version>2.9</surefire.version>
 		<jacc.version>1.0</jacc.version>
-		<tiles.version>2.1.3</tiles.version>
+		<tiles.version>2.1.4</tiles.version>
 		<version.hsqldb>2.0.0</version.hsqldb>
 		<selenium.version>2.0a6</selenium.version>
 		<cuke4duke.version>0.4.4</cuke4duke.version>
