@@ -37,7 +37,9 @@ public class WebServerMain {
 	}
 
 	private static void start() {
-		configureLogging();
+		if (!"true".equals(System.getProperty("dev"))) {
+			configureLogging();
+		}
 		if (jettyServer != null && jettyServer.isRunning()) {
 			System.out.println("Called JettyServer.start(), but the server is allready started.");
 			return;
@@ -56,8 +58,7 @@ public class WebServerMain {
 		if (jettyServer != null) {
 			try {
 				jettyServer.stop();
-				System.out.println("JettyServer stopped on http://" + System.getProperty("hostname", "localhost") + ":" + port
-						+ SESSION_PATH);
+				System.out.println("JettyServer stopped on http://" + System.getProperty("hostname", "localhost") + ":" + port + SESSION_PATH);
 			} catch (final Exception e) {
 				System.err.println(UNABLE_TO_STOP);
 				throw new RuntimeException(UNABLE_TO_STOP, e);
@@ -83,8 +84,7 @@ public class WebServerMain {
 
 		List<Handler> handlerList = new ArrayList<Handler>();
 
-		handlerList.add(new MyWebAppContext(findPathToWarFile(new File(System.getProperty("basedir", "target/appassembler/repo"))),
-				SESSION_PATH));
+		handlerList.add(new MyWebAppContext(findPathToWarFile(new File(System.getProperty("basedir", "target/appassembler/repo"))), SESSION_PATH));
 
 		final HandlerCollection handlers = new HandlerCollection();
 		handlers.setHandlers(handlerList.toArray(new Handler[handlerList.size()]));

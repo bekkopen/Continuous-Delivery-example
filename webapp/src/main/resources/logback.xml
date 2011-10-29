@@ -9,7 +9,7 @@
 
     <logger name="no.bekk.bekkopen.cde" level="INFO"/>
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="STDOUT"/>
     </root>
     

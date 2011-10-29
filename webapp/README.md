@@ -11,6 +11,7 @@ Alternative 2:
 --------------
 * Build it: <code>mvn clean install</code>
 * Run it: <code>mvn exec:java</code>
+** To log to the console instead of to ../logs/stderrout.yyyy_mm_dd.log use <code>mvn exec:java -Ddev</code>
 
 Not an alternative:
 -------------------
