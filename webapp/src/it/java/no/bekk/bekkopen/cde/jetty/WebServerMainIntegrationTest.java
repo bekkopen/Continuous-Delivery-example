@@ -50,16 +50,12 @@ public class WebServerMainIntegrationTest {
 		System.setProperty("basedir", webappDir.getAbsolutePath());
 		port1 = findAvailablePort(port1);
 		FileUtils.writeStringToFile(configFile, "jetty.port=" + port1);
-		FileUtils.writeStringToFile(secretsFile, "hostname=" + hostname + "\nsecret.inside=secret");
-		System.out.println("Contents of file: " + FileUtils.readFileToString(secretsFile));
+		FileUtils.writeStringToFile(secretsFile, "hostname=" + hostname + "\nsecret.inside=secret\n");
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		if (WebServerMain.getJettyServer() != null) {
-			WebServerMain.stop();
-			assertTrue(WebServerMain.getJettyServer().isStopped());
-		}
+		stopServer();
 	}
 
 	@Test
@@ -126,14 +122,10 @@ public class WebServerMainIntegrationTest {
 
 		// Server
 		final Server server = WebServerMain.getJettyServer();
-		assertFalse(server.getSendServerVersion());
-		assertTrue("Expected port " + port1 + ", but was " + server.getConnectors()[0].getPort(),
-				port1 == server.getConnectors()[0].getPort());
+		assertTrue("Expected port " + port1 + ", but was " + server.getConnectors()[0].getPort(), port1 == server.getConnectors()[0].getPort());
 		assertEquals("secret", System.getProperty("secret.inside"));
 		assertTrue(1000 == server.getGracefulShutdown());
 		assertTrue(server.getStopAtShutdown());
-
-		WebServerMain.stop();
 	}
 
 	@Test
@@ -144,7 +136,7 @@ public class WebServerMainIntegrationTest {
 		logger.info("Server hashcode: " + hashcode);
 		startAndConnectToSocket();
 		assertTrue(hashcode == WebServerMain.getJettyServer().hashCode());
-		WebServerMain.stop();
+		stopServer();
 		startAndConnectToSocket();
 		logger.info("Not same server, hashcode: " + WebServerMain.getJettyServer().hashCode());
 		assertFalse(hashcode == WebServerMain.getJettyServer().hashCode());
@@ -193,6 +185,16 @@ public class WebServerMainIntegrationTest {
 
 		} catch (final IOException e) {
 			return false;
+		}
+	}
+
+	private void stopServer() {
+		if (WebServerMain.getJettyServer() != null) {
+			try {
+				WebServerMain.getJettyServer().stop();
+			} catch (final Exception e) {
+				fail("Unable to stop the server: " + e);
+			}
 		}
 	}
 }

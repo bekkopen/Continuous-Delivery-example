@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>no.bekk.bekkopen.cde</groupId>
 	<artifactId>parent</artifactId>
@@ -744,9 +745,9 @@
 
 	<developers>
 		<developer>
-			<id>steinim</id>
-			<name>Stein Inge Morisbak</name>
-			<email>stein.inge.morisbak (AT) BEKK.no</email>
+			<id>eirikwang</id>
+			<name>Eirik Wang</name>
+			<email>eirik.wang (AT) BEKK.no</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -754,9 +755,19 @@
 			<timezone>+1</timezone>
 		</developer>
 		<developer>
-			<id>eirikwang</id>
-			<name>Eirik Wang</name>
-			<email>eirik.wang (AT) BEKK.no</email>
+			<id>heim</id>
+			<name>Andreas Heim</name>
+			<email>andreas.heim (AT) BEKK.no</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<organization>BEKK</organization>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>steinim</id>
+			<name>Stein Inge Morisbak</name>
+			<email>stein.inge.morisbak (AT) BEKK.no</email>
 			<roles>
 				<role>Developer</role>
 			</roles>

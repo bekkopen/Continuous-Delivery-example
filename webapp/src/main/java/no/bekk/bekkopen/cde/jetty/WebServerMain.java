@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.TimeZone;
 
-import no.bekk.bekkopen.cde.jetty.config.MyQueuedThreadPool;
 import no.bekk.bekkopen.cde.jetty.config.MySelectChannelConnector;
 import no.bekk.bekkopen.cde.jetty.config.MyWebAppContext;
 import no.bekk.bekkopen.cde.jetty.config.SystemPropertiesLoader;
@@ -18,6 +17,7 @@ import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.util.RolloverFileOutputStream;
+import org.eclipse.jetty.webapp.WebAppContext;
 
 public class WebServerMain {
 
@@ -54,18 +54,6 @@ public class WebServerMain {
 		System.out.println("JettyServer started on http://" + System.getProperty("hostname", "localhost") + ":" + port + SESSION_PATH);
 	}
 
-	public static void stop() {
-		if (jettyServer != null) {
-			try {
-				jettyServer.stop();
-				System.out.println("JettyServer stopped on http://" + System.getProperty("hostname", "localhost") + ":" + port + SESSION_PATH);
-			} catch (final Exception e) {
-				System.err.println(UNABLE_TO_STOP);
-				throw new RuntimeException(UNABLE_TO_STOP, e);
-			}
-		}
-	}
-
 	private static void configure() {
 		try {
 			SystemPropertiesLoader.loadWebConfig();
@@ -76,16 +64,12 @@ public class WebServerMain {
 
 		jettyServer = new Server();
 
-		jettyServer.setSendServerVersion(false);
-
-		jettyServer.setThreadPool(new MyQueuedThreadPool());
-
 		jettyServer.setConnectors(new Connector[] { new MySelectChannelConnector() });
 
 		List<Handler> handlerList = new ArrayList<Handler>();
-
-		handlerList.add(new MyWebAppContext(findPathToWarFile(new File(System.getProperty("basedir", "target/appassembler/repo"))), SESSION_PATH));
-
+		String webApp = findPathToWarFile(new File(System.getProperty("basedir", "target/appassembler/repo")));
+		WebAppContext context = new MyWebAppContext(webApp, SESSION_PATH);
+		handlerList.add(context);
 		final HandlerCollection handlers = new HandlerCollection();
 		handlers.setHandlers(handlerList.toArray(new Handler[handlerList.size()]));
 
