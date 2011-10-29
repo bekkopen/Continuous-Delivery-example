@@ -9,9 +9,6 @@ import org.springframework.util.ReflectionUtils;
 
 import static org.springframework.util.ReflectionUtils.findMethod;
 
-/**
- * @author Eirik Wang - eirik.wang@bekk.no
- */
 public class Feature extends TagSupport {
 
 	private static final long serialVersionUID = 2935318125797185917L;

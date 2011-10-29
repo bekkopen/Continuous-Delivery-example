@@ -11,9 +11,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author Eirik Wang - eirik.wang@bekk.no
- */
 @Repository
 @Transactional(readOnly = true)
 public class CourseDaoImpl implements CourseDao {
@@ -21,7 +18,8 @@ public class CourseDaoImpl implements CourseDao {
     private EntityManager em = null;
 
     /** @noinspection unchecked*/
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Course> findCourses() {
         return em.createQuery("from Course ").getResultList();
     }
