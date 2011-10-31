@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>no.bekk.bekkopen.cde</groupId>
 	<artifactId>parent</artifactId>
@@ -139,6 +138,8 @@
 				<artifactId>jsp-2.1-glassfish</artifactId>
 				<version>${glassfish-jsp-2.1.version}</version>
 			</dependency>
+
+			<!-- Tiles -->
 			<dependency>
 				<groupId>org.apache.tiles</groupId>
 				<artifactId>tiles-extras</artifactId>
@@ -287,23 +288,8 @@
 				<artifactId>commons-lang</artifactId>
 				<version>${commons-lang.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.apache.el</groupId>
-				<artifactId>com.springsource.org.apache.el</artifactId>
-				<version>${springsource-el.version}</version>
-			</dependency>
 
 			<!-- Others -->
-			<dependency>
-				<groupId>joda-time</groupId>
-				<artifactId>joda-time</artifactId>
-				<version>${jodatime.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jadira.usertype</groupId>
-				<artifactId>usertype.jodatime</artifactId>
-				<version>${usertype-jodatime.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
@@ -323,18 +309,6 @@
 				<version>${spring.version}</version>
 				<scope>test</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.seleniumhq.selenium</groupId>
-				<artifactId>selenium</artifactId>
-				<version>${selenium.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>cuke4duke</groupId>
-				<artifactId>cuke4duke</artifactId>
-				<version>${cuke4duke.version}</version>
-				<scope>test</scope>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -351,32 +325,9 @@
 				<directory>${project.basedir}/src/test/resources</directory>
 				<filtering>true</filtering>
 			</testResource>
-			<testResource>
-				<directory>${project.basedir}/src/it/resources</directory>
-				<filtering>true</filtering>
-			</testResource>
 		</testResources>
 		<pluginManagement>
 			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>${build-helper-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>add-test-source</id>
-							<phase>generate-sources</phase>
-							<goals>
-								<goal>add-test-source</goal>
-							</goals>
-							<configuration>
-								<sources>
-									<source>src/it/java</source>
-								</sources>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
 				<plugin>
 					<groupId>org.bsc.maven</groupId>
 					<artifactId>maven-processor-plugin</artifactId>
@@ -404,41 +355,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${surefire.version}</version>
-					<configuration>
-						<skip>true</skip>
-					</configuration>
-					<executions>
-						<execution>
-							<id>unit-test</id>
-							<phase>test</phase>
-							<goals>
-								<goal>test</goal>
-							</goals>
-							<configuration>
-								<skip>false</skip>
-								<excludes>
-									<exclude>**/*IntegrationTest.java</exclude>
-								</excludes>
-							</configuration>
-						</execution>
-						<execution>
-							<id>integration-test</id>
-							<phase>integration-test</phase>
-							<goals>
-								<goal>test</goal>
-							</goals>
-							<configuration>
-								<skip>false</skip>
-								<enableAssertions>false</enableAssertions>
-								<includes>
-									<include>**/*IntegrationTest.java</include>
-								</includes>
-								<systemPropertyVariables>
-									<integration>${integration}</integration>
-								</systemPropertyVariables>
-							</configuration>
-						</execution>
-					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${surefire.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -462,8 +383,7 @@
 					<artifactId>gmaven-plugin</artifactId>
 					<version>${gmaven-plugin.version}</version>
 				</plugin>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -621,18 +541,34 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
 		</plugins>
 	</build>
 
 	<profiles>
+		<profile>
+			<id>integration-test</id>
+			<activation>
+				<property>
+					<name>integration</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 		<profile>
 			<id>release-sign-artifacts</id>
 			<activation>
@@ -657,6 +593,32 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadoc</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>javadoc</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -664,13 +626,11 @@
 
 	<properties>
 		<!-- Dependency versions -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<glassfish-jsp-2.1.version>2.1.v20100127</glassfish-jsp-2.1.version>
 		<jetty.version>8.0.1.v20110908</jetty.version>
 		<spring.version>3.0.6.RELEASE</spring.version>
 		<springbyexample.version>1.2</springbyexample.version>
-		<springsource-el.version>6.0.20</springsource-el.version>
+		<!--<springsource-el.version>6.0.20</springsource-el.version> -->
 		<jodatime.version>2.0</jodatime.version>
 		<usertype-jodatime.version>1.9</usertype-jodatime.version>
 		<aspectjrt.version>1.6.11</aspectjrt.version>
@@ -687,17 +647,16 @@
 		<commons-io.version>2.0.1</commons-io.version>
 		<commons-lang.version>2.6</commons-lang.version>
 		<commons-dbcp.version>1.2.2</commons-dbcp.version>
-		<commons-el.version>1.0</commons-el.version>
+		<!--<commons-el.version>1.0</commons-el.version> -->
 		<javassist.version>3.12.1.GA</javassist.version>
 		<guava.version>r08</guava.version>
 		<appassembler.version>1.0-alpha-2</appassembler.version>
 		<junit.version>4.9</junit.version>
-		<surefire.version>2.9</surefire.version>
+		<surefire.version>2.10</surefire.version>
 		<jacc.version>1.0</jacc.version>
 		<tiles.version>2.2.2</tiles.version>
 		<version.hsqldb>2.0.0</version.hsqldb>
-		<selenium.version>2.0a6</selenium.version>
-		<cuke4duke.version>0.4.4</cuke4duke.version>
+		<mockito.version>1.9.0-rc1</mockito.version>
 		<!-- Plugin versions -->
 		<build-helper-plugin.version>1.5</build-helper-plugin.version>
 		<maven-processor-plugin.version>2.0.2</maven-processor-plugin.version>

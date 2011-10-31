@@ -20,12 +20,8 @@
 
 	<persistence-unit name="bekkopenHSQLJpaPersistenceUnit">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-
 		<class>no.bekk.bekkopen.cde.domain.Artifact</class>
-		<class>no.bekk.bekkopen.cde.domain.Course</class>
-
 		<exclude-unlisted-classes />
-
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
 			<property name="hibernate.show_sql" value="true" />

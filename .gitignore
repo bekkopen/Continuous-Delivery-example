@@ -17,6 +17,7 @@ trash
 /*/.project
 /*/.springBeans
 /*/.checkstyle
+/*/.externalToolBuilders
 /*/logs
 /*/*/logs
 /*/*.log

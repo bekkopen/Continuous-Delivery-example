@@ -20,9 +20,6 @@ public class Feature extends TagSupport {
         return name;
     }
 
-    /**
-     * @noinspection unchecked
-     */
     public void setName(String feature) throws ClassNotFoundException {
         String[] features = feature.split("\\.");
         Class<?> clz = Class.forName("no.bekk.bekkopen.cde.feature.Feature$" + features[0]);
@@ -32,7 +29,7 @@ public class Feature extends TagSupport {
 
     public static void main(String[] args) throws ClassNotFoundException, JspException {
         Feature f = new Feature();
-        f.setName("Course.Delete");
+        f.setName("Artifact.Delete");
         System.out.println(f.doStartTag());
     }
 

@@ -111,6 +111,7 @@ public class DynamicTilesViewProcessor {
 	/**
 	 * Starts processing the dynamic Tiles definition by creating a temporary definition for rendering.
 	 */
+	@SuppressWarnings("deprecation")
 	protected String startDynamicDefinition(String beanName, String url,
                                             HttpServletRequest request, HttpServletResponse response,
                                             TilesContainer container) 
