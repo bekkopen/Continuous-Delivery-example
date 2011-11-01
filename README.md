@@ -33,3 +33,12 @@ Releasing:
 * <code>mvn release:prepare -Dintegration=false</deploy>
 * <code>mvn release:perform</code>
 * <code>mvn clean deploy -Dintegration=false</code>
+
+Skipping targets:
+-----------------
+The following options are available to skip certain targets:
+* <code>-DskipTests</code> (skip all tests)
+* <code>-Dintegration=false</code> (skip all integration tests)
+* <code>-DskipAssembly</code> (skip assembly of the final artifact zip)
+* <code>-DskipWar</code> (skip assembly of the war)
+
