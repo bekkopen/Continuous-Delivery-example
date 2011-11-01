@@ -9,5 +9,6 @@ Import testdata for the integration tests
 Skipping targets:
 -----------------
 The following options are available to skip certain targets:
+
 * <code>-DskipTests</code> (skip all tests)
 * <code>-Dintegration=false</code> (skip all integration tests)
