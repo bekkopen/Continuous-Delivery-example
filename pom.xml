@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>no.bekk.bekkopen.cde</groupId>
 	<artifactId>parent</artifactId>
@@ -288,8 +289,6 @@
 				<artifactId>commons-lang</artifactId>
 				<version>${commons-lang.version}</version>
 			</dependency>
-
-			<!-- Others -->
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
@@ -324,15 +323,13 @@
 			<testResource>
 				<directory>${project.basedir}/src/test/resources</directory>
 				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
 			</testResource>
 		</testResources>
 		<pluginManagement>
 			<plugins>
-				<plugin>
-					<groupId>org.bsc.maven</groupId>
-					<artifactId>maven-processor-plugin</artifactId>
-					<version>${maven-processor-plugin.version}</version>
-				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -360,11 +357,24 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>${surefire.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>integration-test</goal>
+								<goal>verify</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${war-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>appassembler-maven-plugin</artifactId>
-					<version>${appassembler.version}</version>
+					<version>${appassembler-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -383,7 +393,8 @@
 					<artifactId>gmaven-plugin</artifactId>
 					<version>${gmaven-plugin.version}</version>
 				</plugin>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -398,19 +409,6 @@
 										<versionRange>[1.3,)</versionRange>
 										<goals>
 											<goal>execute</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore>true</ignore>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.bsc.maven</groupId>
-										<artifactId>maven-processor-plugin</artifactId>
-										<versionRange>[2.0.2,)</versionRange>
-										<goals>
-											<goal>process</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
@@ -473,27 +471,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>${source-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>attach-sources</id>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>${javadoc-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>attach-javadocs</id>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -507,21 +489,11 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<configuration>
-					<scmCommentPrefix>Release:</scmCommentPrefix>
-					<arguments>-Dintegration=${integration} -DperformRelease=true</arguments>
-					<goals>deploy</goals>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>appassembler-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<groupId>org.apache.maven.plugins</groupId>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.gmaven</groupId>
@@ -544,95 +516,11 @@
 		</plugins>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>integration-test</id>
-			<activation>
-				<property>
-					<name>integration</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>integration-test</goal>
-									<goal>verify</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>${gpg-plugin.version}</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>jar-no-fork</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-javadoc</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>javadoc</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-
 	<properties>
 		<!-- Dependency versions -->
 		<glassfish-jsp-2.1.version>2.1.v20100127</glassfish-jsp-2.1.version>
 		<jetty.version>8.0.1.v20110908</jetty.version>
 		<spring.version>3.0.6.RELEASE</spring.version>
-		<springbyexample.version>1.2</springbyexample.version>
-		<!--<springsource-el.version>6.0.20</springsource-el.version> -->
-		<jodatime.version>2.0</jodatime.version>
-		<usertype-jodatime.version>1.9</usertype-jodatime.version>
 		<aspectjrt.version>1.6.11</aspectjrt.version>
 		<persistence-api.version>1.0</persistence-api.version>
 		<mysql-connector.version>5.1.17</mysql-connector.version>
@@ -640,36 +528,26 @@
 		<hibernate.version>3.5.6-Final</hibernate.version>
 		<ejb3-persistence.version>1.0.2.GA</ejb3-persistence.version>
 		<hibernate-jpamodelgen.version>1.0.0.Final</hibernate-jpamodelgen.version>
-		<dsl-platform>4.0.1</dsl-platform>
 		<liquibase.version>2.0.1</liquibase.version>
 		<logback.version>0.9.29</logback.version>
 		<slf4j.version>1.6.2</slf4j.version>
 		<commons-io.version>2.0.1</commons-io.version>
 		<commons-lang.version>2.6</commons-lang.version>
 		<commons-dbcp.version>1.2.2</commons-dbcp.version>
-		<!--<commons-el.version>1.0</commons-el.version> -->
-		<javassist.version>3.12.1.GA</javassist.version>
-		<guava.version>r08</guava.version>
-		<appassembler.version>1.0-alpha-2</appassembler.version>
+		<guava.version>10.0.1</guava.version>
 		<junit.version>4.9</junit.version>
-		<surefire.version>2.10</surefire.version>
-		<jacc.version>1.0</jacc.version>
 		<tiles.version>2.2.2</tiles.version>
 		<version.hsqldb>2.0.0</version.hsqldb>
-		<mockito.version>1.9.0-rc1</mockito.version>
 		<!-- Plugin versions -->
-		<build-helper-plugin.version>1.5</build-helper-plugin.version>
-		<maven-processor-plugin.version>2.0.2</maven-processor-plugin.version>
-		<release-plugin.version>2.0-beta-9</release-plugin.version>
+		<appassembler-plugin.version>1.0-alpha-2</appassembler-plugin.version>
+		<war-plugin.version>2.1.1</war-plugin.version>
 		<compiler-plugin.version>2.3.2</compiler-plugin.version>
 		<exec-maven-plugin.version>1.2</exec-maven-plugin.version>
 		<maven-antrun-plugin.version>1.6</maven-antrun-plugin.version>
 		<gmaven-plugin.version>1.3</gmaven-plugin.version>
 		<m2e-lifecycle-mapping.version>1.0.0</m2e-lifecycle-mapping.version>
 		<sql-maven-plugin.version>1.4</sql-maven-plugin.version>
-		<gpg-plugin.version>1.1</gpg-plugin.version>
-		<javadoc-plugin.version>2.8</javadoc-plugin.version>
-		<source-plugin.version>2.1.2</source-plugin.version>
+		<surefire.version>2.10</surefire.version>
 		<!-- Extension versions -->
 		<wagon-webdav-jackrabbit.version>1.0</wagon-webdav-jackrabbit.version>
 		<!-- Other properties -->
