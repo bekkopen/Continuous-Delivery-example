@@ -325,7 +325,17 @@
 				<filtering>true</filtering>
 				<includes>
 					<include>**/*.properties</include>
+					<include>**/META-INF/persistence.xml</include>
+					<include>**/testApplicationContext.xml</include>
 				</includes>
+			</testResource>
+			<testResource>
+				<directory>${project.basedir}/src/test/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/*.properties</exclude>
+					<exclude>**/META-INF/persistence.xml</exclude>
+				</excludes>
 			</testResource>
 		</testResources>
 		<pluginManagement>
@@ -357,14 +367,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>${surefire.version}</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>integration-test</goal>
-								<goal>verify</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -495,6 +497,19 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<configuration>
+							<systemPropertyVariables>
+								<integration>${integration}</integration>
+							</systemPropertyVariables>
+						</configuration>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
