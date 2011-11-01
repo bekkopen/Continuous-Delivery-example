@@ -373,6 +373,11 @@
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${build-helper-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>appassembler-maven-plugin</artifactId>
 					<version>${appassembler-plugin.version}</version>
 				</plugin>
@@ -539,6 +544,7 @@
 		<tiles.version>2.2.2</tiles.version>
 		<version.hsqldb>2.0.0</version.hsqldb>
 		<!-- Plugin versions -->
+		<build-helper-maven-plugin.version>1.7</build-helper-maven-plugin.version>
 		<appassembler-plugin.version>1.0-alpha-2</appassembler-plugin.version>
 		<war-plugin.version>2.1.1</war-plugin.version>
 		<compiler-plugin.version>2.3.2</compiler-plugin.version>

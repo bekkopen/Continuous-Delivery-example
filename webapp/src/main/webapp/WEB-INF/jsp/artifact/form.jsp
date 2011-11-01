@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="feature" uri="http://open.bekk.no/jsp/jstl/feature" %>
 
 <h1><fmt:message key="artifact.form.title"/></h1>
 
@@ -29,8 +30,10 @@
             <label for="packaging"><fmt:message key="artifact.form.packaging"/>:</label>
             <span class="input"><form:input path="packaging" /></span>
         </div>
-        <div class="form-buttons">
-            <div class="button"><input name="submit" type="submit" value="<fmt:message key="button.save"/>" /></div>
-        </div>
+         <feature:enabled name="Artifact.Save">
+            <div class="form-buttons">
+                <div class="button"><input name="submit" type="submit" value="<fmt:message key="button.save"/>" /></div>
+            </div>
+        </feature:enabled>
     </fieldset>
 </form:form>
