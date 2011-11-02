@@ -106,10 +106,10 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-	<!-- <ciManagement> -->
-	<!-- <system>jenkins</system> -->
-	<!-- <url>http://jenkins.bekkopen.no:8080</url> -->
-	<!-- </ciManagement> -->
+	<ciManagement>
+		<system>jenkins</system>
+		<url>http://node1.morisbak.net:8080</url>
+	</ciManagement>
 
 	<dependencyManagement>
 		<dependencies>
@@ -445,7 +445,7 @@
 					<version>${sql-maven-plugin.version}</version>
 					<configuration>
 						<driver>com.mysql.jdbc.Driver</driver>
-						<url>jdbc:mysql://mysql.bekkopen.no/bekkopen</url>
+						<url>jdbc:mysql://node1.morisbak.net/bekkopen</url>
 						<username>bekkopen</username>
 						<password>secret</password>
 					</configuration>

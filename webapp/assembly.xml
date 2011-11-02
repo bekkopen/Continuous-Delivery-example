@@ -22,10 +22,18 @@
 			<outputDirectory>/</outputDirectory>
 			<directoryMode>0755</directoryMode>
 		</fileSet>
-				<fileSet>
+		<fileSet>
 			<directory>../config</directory>
 			<includes>
 				<include>webapp.properties</include>
+			</includes>
+			<outputDirectory>/</outputDirectory>
+			<directoryMode>0755</directoryMode>
+		</fileSet>
+		<fileSet>
+			<directory>${project.build.directory}</directory>
+			<includes>
+				<include>webapp-*.war</include>
 			</includes>
 			<outputDirectory>/</outputDirectory>
 			<directoryMode>0755</directoryMode>
