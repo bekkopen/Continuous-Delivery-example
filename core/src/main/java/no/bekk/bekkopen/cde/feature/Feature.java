@@ -24,8 +24,4 @@ public final class Feature {
 			enabled = new Boolean(System.getProperty(property, "false"));
 		}
 	}
-
-	public static void main(String[] args) {
-		System.out.println(Artifact.class);
-	}
 }

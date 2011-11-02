@@ -11,14 +11,13 @@ The following options are available to skip certain targets:
 
 * <code>-DskipTests</code> (skip all tests)
 * <code>-Dintegration=false</code> (skip all integration tests)
-* <code>-DskipAssembly</code> (skip assembly of the final artifact zip)
-* <code>-DskipWar</code> (skip assembly of the war)
+* <code>-DskipAssembly</code> (skip war packaging, appassembler and zip assembly)
 
 Alternative 2:
 --------------
 * Build it: <code>mvn clean install</code>
-* Run it: <code>mvn exec:java</code>
-** To log to the console instead of to ../logs/stderrout.yyyy_mm_dd.log use <code>mvn exec:java -Ddev</code>
+* Run it: <code>mvn process-test-resources exec:java</code>
+** To log to the console instead of to ../logs/stderrout.yyyy_mm_dd.log use <code>mvn process-test-resources exec:java -Ddev</code>
 
 Not an alternative:
 -------------------

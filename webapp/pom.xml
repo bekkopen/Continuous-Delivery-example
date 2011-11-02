@@ -109,36 +109,16 @@
 							<key>secrets</key>
 							<value>${project.build.testOutputDirectory}/secret.properties</value>
 						</systemProperty>
+						<systemProperty>
+							<key>run.exploded</key>
+							<value>true</value>
+						</systemProperty>
 					</systemProperties>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>appassembler-maven-plugin</artifactId>
-				<groupId>org.codehaus.mojo</groupId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>assemble</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<extraJvmArguments>-Dconfig=webapp.properties
-						-Dsecrets=../secret.properties -Dfile.encoding=UTF-8</extraJvmArguments>
-					<programs>
-						<program>
-							<mainClass>no.bekk.bekkopen.cde.jetty.WebServerMain</mainClass>
-							<name>webapp</name>
-							<platforms>
-								<platform>unix</platform>
-							</platforms>
-						</program>
-					</programs>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -148,11 +128,49 @@
 			<id>assembly</id>
 			<activation>
 				<property>
-					<name>!skip.assembly</name>
+					<name>!skipAssembly</name>
 				</property>
 			</activation>
 			<build>
 				<plugins>
+					<plugin>
+						<artifactId>appassembler-maven-plugin</artifactId>
+						<groupId>org.codehaus.mojo</groupId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>assemble</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<extraJvmArguments>-Dconfig=webapp.properties -Dsecrets=../secret.properties -Dfile.encoding=UTF-8</extraJvmArguments>
+							<programs>
+								<program>
+									<mainClass>no.bekk.bekkopen.cde.jetty.WebServerMain</mainClass>
+									<name>webapp</name>
+									<platforms>
+										<platform>unix</platform>
+									</platforms>
+								</program>
+							</programs>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>war</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+							<packagingExcludes>WEB-INF/classes/no/bekk/bekkopen/cde/jetty/WebServerMain.class,WEB-INF/classes/logback.xml</packagingExcludes>
+						</configuration>
+					</plugin>
 					<plugin>
 						<artifactId>maven-assembly-plugin</artifactId>
 						<executions>
@@ -167,33 +185,6 @@
 							<descriptors>
 								<descriptor>assembly.xml</descriptor>
 							</descriptors>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>war</id>
-			<activation>
-				<property>
-					<name>!skipWar</name>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>war</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-							<packagingExcludes>WEB-INF/classes/no/bekk/bekkopen/cde/jetty/WebServerMain.class,WEB-INF/classes/logback.xml</packagingExcludes>
 						</configuration>
 					</plugin>
 				</plugins>

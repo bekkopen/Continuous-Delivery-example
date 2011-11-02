@@ -24,13 +24,6 @@ public class Feature extends TagSupport {
         String[] features = feature.split("\\.");
         Class<?> clz = Class.forName("no.bekk.bekkopen.cde.feature.Feature$" + features[0]);
         enabled = (Enabled) ReflectionUtils.invokeMethod(findMethod(clz, "valueOf", String.class), null, features[1]);
-        System.out.println(enabled.isEnabled());
-    }
-
-    public static void main(String[] args) throws ClassNotFoundException, JspException {
-        Feature f = new Feature();
-        f.setName("Artifact.Delete");
-        System.out.println(f.doStartTag());
     }
 
     public Enabled getEnabled() {

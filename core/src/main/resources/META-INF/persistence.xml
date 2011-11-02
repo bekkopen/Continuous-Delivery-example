@@ -4,12 +4,8 @@
 	version="2.0">
 	<persistence-unit name="bekkopenJpaPersistenceUnit">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-
 		<class>no.bekk.bekkopen.cde.domain.Artifact</class>
-		<class>no.bekk.bekkopen.cde.domain.Course</class>
-
 		<exclude-unlisted-classes />
-
 		<properties>
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />

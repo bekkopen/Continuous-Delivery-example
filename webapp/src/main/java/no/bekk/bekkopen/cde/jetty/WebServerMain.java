@@ -67,9 +67,17 @@ public class WebServerMain {
 		jettyServer.setConnectors(new Connector[] { new MySelectChannelConnector() });
 
 		List<Handler> handlerList = new ArrayList<Handler>();
-		String webApp = findPathToWarFile(new File(System.getProperty("basedir", "target")));
+		
+		String webApp;
+		if ("true".equals(System.getProperty("run.exploded"))) {
+			webApp = "src/main/webapp";
+		} else {
+			webApp = findPathToWarFile(new File(System.getProperty("basedir", "target")));
+		}
+		
 		WebAppContext context = new MyWebAppContext(webApp, SESSION_PATH);
 		handlerList.add(context);
+		
 		final HandlerCollection handlers = new HandlerCollection();
 		handlers.setHandlers(handlerList.toArray(new Handler[handlerList.size()]));
 
