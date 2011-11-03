@@ -30,9 +30,8 @@ Usage:
 
 Releasing:
 ----------
-* <code>mvn release:prepare -Dintegration=false</deploy>
-* <code>mvn release:perform</code>
-* <code>mvn clean deploy -Dintegration=false</code>
+* <code>mvn release:prepare -DdryRun=true -Dintegration=false</deploy>
+* <code>mvn release:clean release:prepare release:perform -Dintegration=false -Dgoals=deploy</code>
 
 Skipping targets:
 -----------------
