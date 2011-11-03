@@ -106,10 +106,10 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-	<!-- <ciManagement> -->
-	<!-- <system>jenkins</system> -->
-	<!-- <url>http://jenkins.bekkopen.no:8080</url> -->
-	<!-- </ciManagement> -->
+	<ciManagement>
+		<system>jenkins</system>
+		<url>http://node1.morisbak.net:8080</url>
+	</ciManagement>
 
 	<dependencyManagement>
 		<dependencies>
@@ -139,6 +139,8 @@
 				<artifactId>jsp-2.1-glassfish</artifactId>
 				<version>${glassfish-jsp-2.1.version}</version>
 			</dependency>
+
+			<!-- Tiles -->
 			<dependency>
 				<groupId>org.apache.tiles</groupId>
 				<artifactId>tiles-extras</artifactId>
@@ -288,23 +290,6 @@
 				<version>${commons-lang.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.el</groupId>
-				<artifactId>com.springsource.org.apache.el</artifactId>
-				<version>${springsource-el.version}</version>
-			</dependency>
-
-			<!-- Others -->
-			<dependency>
-				<groupId>joda-time</groupId>
-				<artifactId>joda-time</artifactId>
-				<version>${jodatime.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jadira.usertype</groupId>
-				<artifactId>usertype.jodatime</artifactId>
-				<version>${usertype-jodatime.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
@@ -323,18 +308,6 @@
 				<version>${spring.version}</version>
 				<scope>test</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.seleniumhq.selenium</groupId>
-				<artifactId>selenium</artifactId>
-				<version>${selenium.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>cuke4duke</groupId>
-				<artifactId>cuke4duke</artifactId>
-				<version>${cuke4duke.version}</version>
-				<scope>test</scope>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -350,38 +323,23 @@
 			<testResource>
 				<directory>${project.basedir}/src/test/resources</directory>
 				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/META-INF/persistence.xml</include>
+					<include>**/testApplicationContext.xml</include>
+				</includes>
 			</testResource>
 			<testResource>
-				<directory>${project.basedir}/src/it/resources</directory>
-				<filtering>true</filtering>
+				<directory>${project.basedir}/src/test/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/*.properties</exclude>
+					<exclude>**/META-INF/persistence.xml</exclude>
+				</excludes>
 			</testResource>
 		</testResources>
 		<pluginManagement>
 			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>${build-helper-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>add-test-source</id>
-							<phase>generate-sources</phase>
-							<goals>
-								<goal>add-test-source</goal>
-							</goals>
-							<configuration>
-								<sources>
-									<source>src/it/java</source>
-								</sources>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.bsc.maven</groupId>
-					<artifactId>maven-processor-plugin</artifactId>
-					<version>${maven-processor-plugin.version}</version>
-				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -404,46 +362,26 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${surefire.version}</version>
-					<configuration>
-						<skip>true</skip>
-					</configuration>
-					<executions>
-						<execution>
-							<id>unit-test</id>
-							<phase>test</phase>
-							<goals>
-								<goal>test</goal>
-							</goals>
-							<configuration>
-								<skip>false</skip>
-								<excludes>
-									<exclude>**/*IntegrationTest.java</exclude>
-								</excludes>
-							</configuration>
-						</execution>
-						<execution>
-							<id>integration-test</id>
-							<phase>integration-test</phase>
-							<goals>
-								<goal>test</goal>
-							</goals>
-							<configuration>
-								<skip>false</skip>
-								<enableAssertions>false</enableAssertions>
-								<includes>
-									<include>**/*IntegrationTest.java</include>
-								</includes>
-								<systemPropertyVariables>
-									<integration>${integration}</integration>
-								</systemPropertyVariables>
-							</configuration>
-						</execution>
-					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${surefire.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${war-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${build-helper-maven-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>appassembler-maven-plugin</artifactId>
-					<version>${appassembler.version}</version>
+					<version>${appassembler-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -486,19 +424,6 @@
 								</pluginExecution>
 								<pluginExecution>
 									<pluginExecutionFilter>
-										<groupId>org.bsc.maven</groupId>
-										<artifactId>maven-processor-plugin</artifactId>
-										<versionRange>[2.0.2,)</versionRange>
-										<goals>
-											<goal>process</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore>true</ignore>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
 										<groupId>org.apache.maven.plugins</groupId>
 										<artifactId>maven-enforcer-plugin</artifactId>
 										<versionRange>[1.0,)</versionRange>
@@ -520,7 +445,7 @@
 					<version>${sql-maven-plugin.version}</version>
 					<configuration>
 						<driver>com.mysql.jdbc.Driver</driver>
-						<url>jdbc:mysql://mysql.bekkopen.no/bekkopen</url>
+						<url>jdbc:mysql://node1.morisbak.net/bekkopen</url>
 						<username>bekkopen</username>
 						<password>secret</password>
 					</configuration>
@@ -553,27 +478,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>${source-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>attach-sources</id>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>${javadoc-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>attach-javadocs</id>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -587,21 +496,24 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<configuration>
+							<systemPropertyVariables>
+								<integration>${integration}</integration>
+							</systemPropertyVariables>
+						</configuration>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<configuration>
-					<scmCommentPrefix>Release:</scmCommentPrefix>
-					<arguments>-Dintegration=${integration} -DperformRelease=true</arguments>
-					<goals>deploy</goals>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>appassembler-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<groupId>org.apache.maven.plugins</groupId>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.gmaven</groupId>
@@ -621,58 +533,14 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
 		</plugins>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>${gpg-plugin.version}</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-
 	<properties>
 		<!-- Dependency versions -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<glassfish-jsp-2.1.version>2.1.v20100127</glassfish-jsp-2.1.version>
 		<jetty.version>8.0.1.v20110908</jetty.version>
 		<spring.version>3.0.6.RELEASE</spring.version>
-		<springbyexample.version>1.2</springbyexample.version>
-		<springsource-el.version>6.0.20</springsource-el.version>
-		<jodatime.version>2.0</jodatime.version>
-		<usertype-jodatime.version>1.9</usertype-jodatime.version>
 		<aspectjrt.version>1.6.11</aspectjrt.version>
 		<persistence-api.version>1.0</persistence-api.version>
 		<mysql-connector.version>5.1.17</mysql-connector.version>
@@ -680,37 +548,27 @@
 		<hibernate.version>3.5.6-Final</hibernate.version>
 		<ejb3-persistence.version>1.0.2.GA</ejb3-persistence.version>
 		<hibernate-jpamodelgen.version>1.0.0.Final</hibernate-jpamodelgen.version>
-		<dsl-platform>4.0.1</dsl-platform>
 		<liquibase.version>2.0.1</liquibase.version>
 		<logback.version>0.9.29</logback.version>
 		<slf4j.version>1.6.2</slf4j.version>
 		<commons-io.version>2.0.1</commons-io.version>
 		<commons-lang.version>2.6</commons-lang.version>
 		<commons-dbcp.version>1.2.2</commons-dbcp.version>
-		<commons-el.version>1.0</commons-el.version>
-		<javassist.version>3.12.1.GA</javassist.version>
-		<guava.version>r08</guava.version>
-		<appassembler.version>1.0-alpha-2</appassembler.version>
+		<guava.version>10.0.1</guava.version>
 		<junit.version>4.9</junit.version>
-		<surefire.version>2.9</surefire.version>
-		<jacc.version>1.0</jacc.version>
 		<tiles.version>2.2.2</tiles.version>
 		<version.hsqldb>2.0.0</version.hsqldb>
-		<selenium.version>2.0a6</selenium.version>
-		<cuke4duke.version>0.4.4</cuke4duke.version>
 		<!-- Plugin versions -->
-		<build-helper-plugin.version>1.5</build-helper-plugin.version>
-		<maven-processor-plugin.version>2.0.2</maven-processor-plugin.version>
-		<release-plugin.version>2.0-beta-9</release-plugin.version>
+		<build-helper-maven-plugin.version>1.7</build-helper-maven-plugin.version>
+		<appassembler-plugin.version>1.0-alpha-2</appassembler-plugin.version>
+		<war-plugin.version>2.1.1</war-plugin.version>
 		<compiler-plugin.version>2.3.2</compiler-plugin.version>
 		<exec-maven-plugin.version>1.2</exec-maven-plugin.version>
 		<maven-antrun-plugin.version>1.6</maven-antrun-plugin.version>
 		<gmaven-plugin.version>1.3</gmaven-plugin.version>
 		<m2e-lifecycle-mapping.version>1.0.0</m2e-lifecycle-mapping.version>
 		<sql-maven-plugin.version>1.4</sql-maven-plugin.version>
-		<gpg-plugin.version>1.1</gpg-plugin.version>
-		<javadoc-plugin.version>2.8</javadoc-plugin.version>
-		<source-plugin.version>2.1.2</source-plugin.version>
+		<surefire.version>2.10</surefire.version>
 		<!-- Extension versions -->
 		<wagon-webdav-jackrabbit.version>1.0</wagon-webdav-jackrabbit.version>
 		<!-- Other properties -->

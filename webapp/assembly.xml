@@ -22,7 +22,7 @@
 			<outputDirectory>/</outputDirectory>
 			<directoryMode>0755</directoryMode>
 		</fileSet>
-				<fileSet>
+		<fileSet>
 			<directory>../config</directory>
 			<includes>
 				<include>webapp.properties</include>
@@ -31,10 +31,18 @@
 			<directoryMode>0755</directoryMode>
 		</fileSet>
 		<fileSet>
+			<directory>${project.build.directory}</directory>
+			<includes>
+				<include>webapp-*.war</include>
+			</includes>
+			<outputDirectory>/</outputDirectory>
+			<directoryMode>0755</directoryMode>
+		</fileSet>
+		<fileSet>
 			<directory>${project.build.directory}/classes</directory>
 			<includes>
 				<include>logback.xml</include>
-				<include>no/bekk/bekkopen/jetty/**/*.class</include>
+				<include>no/bekk/bekkopen/cde/jetty/**/*.class</include>
 			</includes>
 			<outputDirectory>/</outputDirectory>
 			<directoryMode>0755</directoryMode>

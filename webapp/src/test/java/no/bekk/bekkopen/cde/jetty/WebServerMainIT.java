@@ -12,12 +12,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
 
-import no.bekk.bekkopen.cde.jetty.WebServerMain;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.jetty.server.Server;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -29,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @IfProfileValue(name = "integration", value = "true")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:testApplicationContext.xml" })
-public class WebServerMainIntegrationTest {
+public class WebServerMainIT {
 	private final Logger logger = Logger.getLogger("WebServerMainITest.class");
 
 	@Rule
@@ -40,6 +39,7 @@ public class WebServerMainIntegrationTest {
 
 	private String hostname;
 
+	@Before
 	public void setUp() throws IOException {
 		hostname = InetAddress.getLocalHost().getHostName();
 		final File webappDir = createFileInTempDirAndReturnParent("testwebapp/test/test/test.war");
@@ -60,7 +60,6 @@ public class WebServerMainIntegrationTest {
 
 	@Test
 	public void shouldThrowExceptionIfConfigNotSetAsSystemProperty() throws Exception {
-		setUp();
 		try {
 			System.clearProperty("config");
 			startAndConnectToSocket();
@@ -72,7 +71,6 @@ public class WebServerMainIntegrationTest {
 
 	@Test
 	public void shouldThrowExceptionIfSecretsNotSetAsSystemProperty() throws Exception {
-		setUp();
 		try {
 			System.clearProperty("secrets");
 			startAndConnectToSocket();
@@ -84,7 +82,6 @@ public class WebServerMainIntegrationTest {
 
 	@Test
 	public void shouldThrowExceptionIfConfigFileDoesNotExist() throws Exception {
-		setUp();
 		FileUtils.forceDelete(configFile);
 		try {
 			startAndConnectToSocket();
@@ -100,7 +97,6 @@ public class WebServerMainIntegrationTest {
 
 	@Test
 	public void shouldThrowExceptionIfSecretsFileDoesNotExist() throws Exception {
-		setUp();
 		FileUtils.forceDelete(secretsFile);
 		try {
 			startAndConnectToSocket();
@@ -117,7 +113,6 @@ public class WebServerMainIntegrationTest {
 
 	@Test
 	public void validateConfig() throws Exception {
-		setUp();
 		startAndConnectToSocket();
 
 		// Server
@@ -130,7 +125,6 @@ public class WebServerMainIntegrationTest {
 
 	@Test
 	public void testStart() throws Exception {
-		setUp();
 		startAndConnectToSocket();
 		final int hashcode = WebServerMain.getJettyServer().hashCode();
 		logger.info("Server hashcode: " + hashcode);

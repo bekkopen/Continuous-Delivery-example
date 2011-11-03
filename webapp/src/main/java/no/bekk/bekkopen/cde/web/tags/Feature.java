@@ -20,20 +20,10 @@ public class Feature extends TagSupport {
         return name;
     }
 
-    /**
-     * @noinspection unchecked
-     */
     public void setName(String feature) throws ClassNotFoundException {
         String[] features = feature.split("\\.");
         Class<?> clz = Class.forName("no.bekk.bekkopen.cde.feature.Feature$" + features[0]);
         enabled = (Enabled) ReflectionUtils.invokeMethod(findMethod(clz, "valueOf", String.class), null, features[1]);
-        System.out.println(enabled.isEnabled());
-    }
-
-    public static void main(String[] args) throws ClassNotFoundException, JspException {
-        Feature f = new Feature();
-        f.setName("Course.Delete");
-        System.out.println(f.doStartTag());
     }
 
     public Enabled getEnabled() {

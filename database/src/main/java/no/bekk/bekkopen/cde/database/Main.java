@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws CommandLineParsingException, IOException, NoSuchFieldException, IllegalAccessException {
         List<String> defaultArgs = Arrays.asList(
                 "--driver=com.mysql.jdbc.Driver",
-                "--url=jdbc:mysql://mysql.bekkopen.no/bekkopen",
+                "--url=jdbc:mysql://node1.morisbak.net/bekkopen",
                 "--username=bekkopen",
                 "--password=secret",
                 "--changeLogFile=bekkopen/database/db.changelog-master.xml"

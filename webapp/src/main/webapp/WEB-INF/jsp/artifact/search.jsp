@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="feature" uri="http://open.bekk.no/jsp/jstl/feature" %>
 
 <h1><fmt:message key="artifact.search.title"/></h1>
 
@@ -29,7 +30,9 @@
         <td>${artifact.packaging}</td> 
     	<td>
             <a href='<c:out value="${editUrl}"/>'><fmt:message key="button.edit"/></a>
-            <a href="javascript:document.forms['${artifactFormId}'].submit();"><fmt:message key="button.delete"/></a> 
+            <feature:enabled name="Artifact.Delete">
+                <a href="javascript:document.forms['${artifactFormId}'].submit();"><fmt:message key="button.delete"/></a>
+            </feature:enabled> 
         </td>
     </tr>
 </c:forEach>

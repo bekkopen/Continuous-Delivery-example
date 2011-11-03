@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import no.bekk.bekkopen.cde.domain.Artifact;
+import no.bekk.bekkopen.cde.feature.Feature;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,8 +26,7 @@ public class ArtifactDaoImpl implements ArtifactDao {
 
 	@Override
 	public List<Artifact> findArtifacts() {
-		Query query = em
-				.createQuery("select a from Artifact a");
+		Query query = em.createQuery("select a from Artifact a");
 		@SuppressWarnings("unchecked")
 		List<Artifact> resultList = query.getResultList();
 		return resultList;
@@ -40,12 +40,19 @@ public class ArtifactDaoImpl implements ArtifactDao {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Artifact save(Artifact artifact) {
-		return em.merge(artifact);
+		System.out.println("Save? " + Feature.Artifact.Save.isEnabled());
+		if (Feature.Artifact.Save.isEnabled()) {
+			return em.merge(artifact);
+		}
+		return artifact;
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public void delete(Artifact artifact) {
-		em.remove(em.merge(artifact));
+		System.out.println("Delete? " + Feature.Artifact.Delete.isEnabled());
+		if (Feature.Artifact.Delete.isEnabled()) {
+			em.remove(em.merge(artifact));
+		}
 	}
 }
