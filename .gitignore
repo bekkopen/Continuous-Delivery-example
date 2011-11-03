@@ -30,3 +30,4 @@ target/
 /logs
 core/src/main/generated-java/
 webapp/hsqldb/*
+core/hsqldb/*
