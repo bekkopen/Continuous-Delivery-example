@@ -12,7 +12,7 @@
 #
 
 APP_NAME=webapp
-JAVA_HOME=/usr/local/java
+JAVA_HOME=/usr/lib/jvm/java-6-openjdk/jre
 HOME_DIR=/server/bekkopen
 USER=bekkopen
 

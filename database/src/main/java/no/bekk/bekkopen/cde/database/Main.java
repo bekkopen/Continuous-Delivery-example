@@ -13,7 +13,7 @@ public class Main {
                 "--driver=com.mysql.jdbc.Driver",
                 "--url=jdbc:mysql://node1.morisbak.net/bekkopen",
                 "--username=bekkopen",
-                "--password=secret",
+                "--password=hemmelig",
                 "--changeLogFile=bekkopen/database/db.changelog-master.xml"
         );
         List<String> suppliedArgs = Arrays.asList(args);

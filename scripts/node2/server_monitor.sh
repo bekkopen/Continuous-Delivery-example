@@ -7,7 +7,7 @@
 # Author: Stein Inge Morisbak (stein.inge.morisbak@BEKK.no)
 #
 
-JAVA_HOME=/usr/local/java
+JAVA_HOME=/usr/lib/jvm/java-6-openjdk/jre
 APP_HOME=/server/bekkopen/webapp
 
 hostname=`hostname`
