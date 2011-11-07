@@ -13,6 +13,6 @@ Preparing the database
 -----------------------
 * Comment out <code>#bind-address = 127.0.0.1</code> in <code>/etc/mysql/my.cnf</code> and restart the mysql service (<code>service mysql restart</code>).
 * <code>CREATE USER 'bekkopen'@'localhost' IDENTIFIED BY 'hemmelig';</code>
-* <code>GRANT ALL PRIVILEGES ON *.* TO 'bekkopen'@'localhost' IDENTIFIED BY 'hemmelig' WITH GRANT OPTION;</code>
+* <code>GRANT ALL PRIVILEGES ON \*.\* TO 'bekkopen'@'localhost' IDENTIFIED BY 'hemmelig' WITH GRANT OPTION;</code>
 * <code>CREATE USER 'bekkopen'@'%' IDENTIFIED BY 'hemmelig';</code>
-* <code>GRANT ALL PRIVILEGES ON *.* TO 'bekkopen'@'%' IDENTIFIED BY 'hemmelig' WITH GRANT OPTION;</code>
+* <code>GRANT ALL PRIVILEGES ON \*.\* TO 'bekkopen'@'%' IDENTIFIED BY 'hemmelig' WITH GRANT OPTION;</code>
