@@ -17,12 +17,6 @@
 		</license>
 	</licenses>
 
-	<!-- <parent> -->
-	<!-- <groupId>org.sonatype.oss</groupId> -->
-	<!-- <artifactId>oss-parent</artifactId> -->
-	<!-- <version>7</version> -->
-	<!-- </parent> -->
-
 	<modules>
 		<module>core</module>
 		<module>database</module>
@@ -40,14 +34,6 @@
 			<id>Continuous-Delivery-example</id>
 			<url>http://bekkopen.github.com/Continuous-Delivery-example/</url>
 		</site>
-<!-- 		<repository> -->
-<!-- 			<id>sonatype-nexus-staging</id> -->
-<!-- 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url> -->
-<!-- 		</repository> -->
-<!-- 		<snapshotRepository> -->
-<!-- 			<id>sonatype-nexus-snapshots</id> -->
-<!-- 			<url>https://oss.sonatype.org/content/repositories/snapshots</url> -->
-<!-- 		</snapshotRepository> -->
 		<repository>
 			<id>nexus-releases</id>
 			<url>http://node1.morisbak.net:8081/nexus/content/repositories/releases</url>
@@ -422,19 +408,6 @@
 										<ignore>true</ignore>
 									</action>
 								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-enforcer-plugin</artifactId>
-										<versionRange>[1.0,)</versionRange>
-										<goals>
-											<goal>enforce</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
@@ -476,13 +449,13 @@
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>${source-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>${javadoc-plugin.version}</version>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${release-plugin.version}</version>
+					<configuration>
+						<mavenExecutorId>forked-path</mavenExecutorId>
+						<useReleaseProfile>false</useReleaseProfile>
+						<arguments>-Psonatype-oss-release</arguments>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -569,6 +542,7 @@
 		<m2e-lifecycle-mapping.version>1.0.0</m2e-lifecycle-mapping.version>
 		<sql-maven-plugin.version>1.4</sql-maven-plugin.version>
 		<surefire.version>2.10</surefire.version>
+		<release-plugin.version>2.2.1</release-plugin.version>
 		<!-- Extension versions -->
 		<wagon-webdav-jackrabbit.version>1.0</wagon-webdav-jackrabbit.version>
 		<!-- Other properties -->
