@@ -35,11 +35,11 @@
 		</site>
 		<repository>
 			<id>nexus-releases</id>
-			<url>http://node1.${domain}:8081/nexus/content/repositories/releases</url>
+			<url>http://node1.morisbak.net:8081/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
-			<url>http://node1.${domain}:8081/nexus/content/repositories/snapshots</url>
+			<url>http://node1.morisbak.net:8081/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -93,7 +93,7 @@
 
 	<ciManagement>
 		<system>jenkins</system>
-		<url>http://node1.${domain}:8080</url>
+		<url>http://node1.morisbak.net:8080</url>
 	</ciManagement>
 
 	<dependencyManagement>
@@ -417,7 +417,7 @@
 					<version>${sql-maven-plugin.version}</version>
 					<configuration>
 						<driver>com.mysql.jdbc.Driver</driver>
-						<url>jdbc:mysql://node1.${domain}/bekkopen</url>
+						<url>jdbc:mysql://node1.morisbak.net/bekkopen</url>
 						<username>bekkopen</username>
 						<password>hemmelig</password>
 					</configuration>
@@ -555,7 +555,6 @@
 		<jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
 		<persistenceUnit>bekkopenHSQLJpaPersistenceUnit</persistenceUnit>
 		<integration>true</integration>
-		<domain>morisbak.net</domain>
 	</properties>
 
 	<organization>
