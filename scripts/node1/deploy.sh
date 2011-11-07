@@ -30,6 +30,9 @@ _run()
    if [ $RESPONSE -ne 0 ]; then
      echo 1>&2 "$1: command failed :-("
      _rollBack
+     if [ -e ${ARTIFACT}-${VERSION}.zip ]; then
+        _delete ${ARTIFACT}-${VERSION}.zip
+     fi
      exit 127
    fi
    return $RESPONSE
