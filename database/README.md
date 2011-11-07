@@ -9,6 +9,10 @@ Generating schema
 * Drop schema: <code>java -jar database-*-SNAPSHOT.jar dropAll</code>
 * See other options: <code>java -jar database-*-SNAPSHOT.jar</code>
 
+Importing testdata
+-----------------------------------
+* <code>mvn process-test-resources sql:execute</code>
+
 Preparing the database
 -----------------------
 * Comment out <code>#bind-address = 127.0.0.1</code> in <code>/etc/mysql/my.cnf</code> and restart the mysql service (<code>service mysql restart</code>).
