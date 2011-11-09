@@ -22,6 +22,7 @@ Vagrant::Config.run do |config|
 
   config.vm.define :web do |web_config|
     web_config.vm.box = "oneiric32"
+    web_config.vm.forward_port "webapp", 9090, 9090
     web_config.vm.forward_port "ssh", 22, 2200
     
     config.vm.network("33.33.33.11")

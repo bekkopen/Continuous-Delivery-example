@@ -197,7 +197,7 @@ else
    _delete ${PREVIOUS_VERSION}
 fi
 
-_run "unzip -qq ${ARTIFACT}-${VERSION}.zip"
+_run "unzip -qq -o ${ARTIFACT}-${VERSION}.zip"
 
 _delete ${ARTIFACT}-${VERSION}.zip
 
