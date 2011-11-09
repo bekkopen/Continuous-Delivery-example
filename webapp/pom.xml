@@ -212,45 +212,52 @@
 						<configuration>
 							<target>
 								<echo message="Deleting ${project.build.finalName}.zip from ${host} if it allready exists..." />
-								<echo message="Running: ssh -tt ${host.user}@${host} if [ -f ${project.build.finalName}.zip ]; then rm -f ${project.build.finalName}.zip ; fi" />
+								<echo message="Running: ssh -tt -p${ssh-port} ${host.user}@${host} if [ -f ${project.build.finalName}.zip ]; then rm -f ${project.build.finalName}.zip ; fi" />
 								<exec executable="ssh" failonerror="true">
+									<arg value="-p${ssh-port}" />
 									<arg value="${host.user}@${host}" />
 									<arg value="if [ -f ${project.build.finalName}.zip ]; then rm -f ${project.build.finalName}.zip ; fi" />
 								</exec>
 								<echo message="Uploading deploy.sh to ${host}..." />
-								<echo message="Running: scp ../scripts/deploy.sh ${host.user}@${host}:${host.path}" />
+								<echo message="Running: scp -P${ssh-port} ../scripts/deploy.sh ${host.user}@${host}:${host.path}" />
 								<exec executable="scp" failonerror="true">
+									<arg value="-P${ssh-port}" />
 									<arg value="../scripts/deploy.sh" />
 									<arg value="${host.user}@${host}:" />
 								</exec>
 								<echo message="Uploading deploy.config to ${host}..." />
-								<echo message="Running: scp ../config/${host}/deploy.config ${host.user}@${host}:${host.path}" />
+								<echo message="Running: scp -P${ssh-port} ../config/${host}/deploy.config ${host.user}@${host}:${host.path}" />
 								<exec executable="scp" failonerror="true">
+									<arg value="-P${ssh-port}" />
 									<arg value="../config/${host}/deploy.config" />
 									<arg value="${host.user}@${host}:" />
 								</exec>
 								<echo message="Uploading startup.sh to ${host}..." />
-								<echo message="Running: scp ../scripts/${host}/startup.sh ${host.user}@${host}:${host.path}" />
+								<echo message="Running: scp -P${ssh-port} ../scripts/${host}/startup.sh ${host.user}@${host}:${host.path}" />
 								<exec executable="scp" failonerror="true">
+									<arg value="-P${ssh-port}" />
 									<arg value="../scripts/${host}/startup.sh" />
 									<arg value="${host.user}@${host}:" />
 								</exec>
 								<echo message="Uploading server_monitor.sh to ${host}..." />
-								<echo message="Running: scp ../scripts/${host}/server_monitor.sh ${host.user}@${host}:${host.path}" />
+								<echo message="Running: scp -P${ssh-port} ../scripts/${host}/server_monitor.sh ${host.user}@${host}:${host.path}" />
 								<exec executable="scp" failonerror="true">
+									<arg value="-P${ssh-port}" />
 									<arg value="../scripts/${host}/server_monitor.sh" />
 									<arg value="${host.user}@${host}:" />
 								</exec>
 								<echo message="Uploading ${project.build.finalName}.zip to ${host}..." />
-								<echo message="Running: scp target/${project.build.finalName}.zip ${host.user}@${host}:${host.path}" />
+								<echo message="Running: scp -P${ssh-port} target/${project.build.finalName}.zip ${host.user}@${host}:${host.path}" />
 								<exec executable="scp" failonerror="true">
+									<arg value="-P${ssh-port}" />
 									<arg value="target/${project.build.finalName}.zip" />
 									<arg value="${host.user}@${host}:" />
 								</exec>
 								<echo message="Deploying version ${project.version} to ${host}" />
-								<echo message="Running: ssh -tt ${host.user}@${host} nohup ./deploy.sh ${project.artifactId} ${project.version} &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
+								<echo message="Running: ssh -tt -p${ssh-port} ${host.user}@${host} nohup ./deploy.sh ${project.artifactId} ${project.version} &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
 								<exec executable="ssh" failonerror="true">
 									<arg value="-tt" />
+									<arg value="-p${ssh-port}" />
 									<arg value="${host.user}@${host}" />
 									<arg value="nohup ./deploy.sh ${project.artifactId} ${project.version} &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
 								</exec>
@@ -284,9 +291,10 @@
 							<target>
 								<input message="What version do you want to deploy?:" addproperty="deploy.version" defaultvalue="${project.version}" />
 								<echo message="Deploying ${deploy.version} on ${host}" />
-								<echo message="Running: ssh -tt ${host.user}@${host} nohup ./deploy.sh ${project.artifactId} ${deploy.version} &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
+								<echo message="Running: ssh -tt -p${ssh-port} ${host.user}@${host} nohup ./deploy.sh ${project.artifactId} ${deploy.version} &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
 								<exec executable="ssh" failonerror="true">
 									<arg value="-tt" />
+									<arg value="-p${ssh-port}" />
 									<arg value="${host.user}@${host}" />
 									<arg value="nohup ./deploy.sh ${project.artifactId} ${deploy.version} &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
 								</exec>
@@ -320,9 +328,10 @@
 							<target>
 								<input message="What version do you want to roll back to?:" addproperty="version.rollback" defaultvalue="${project.version}" />
 								<echo message="Rolling back to ${version.rollback} on ${host}" />
-								<echo message="Running: ssh -tt ${host.user}@${host} nohup ./deploy.sh ${project.artifactId} ${version.rollback}.backup &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
+								<echo message="Running: ssh -tt -p${ssh-port} ${host.user}@${host} nohup ./deploy.sh ${project.artifactId} ${version.rollback}.backup &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
 								<exec executable="ssh" failonerror="true">
 									<arg value="-tt" />
+									<arg value="-p${ssh-port}" />
 									<arg value="${host.user}@${host}" />
 									<arg value="nohup ./deploy.sh ${project.artifactId} ${version.rollback}.backup &gt; /dev/null 2&gt;&amp;1 &lt;/dev/null" />
 								</exec>

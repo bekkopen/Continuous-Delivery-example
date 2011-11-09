@@ -561,6 +561,7 @@
 		<jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
 		<persistenceUnit>bekkopenHSQLJpaPersistenceUnit</persistenceUnit>
 		<integration>true</integration>
+		<ssh-port>22</ssh-port>
 	</properties>
 
 	<organization>
