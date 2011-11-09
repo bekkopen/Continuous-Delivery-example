@@ -4,18 +4,14 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.define :ci do |ci_config|
-    ci_config.vm.box = "oneiric32"
-    ci_config.vm.forward_port "jenkins", 8080, 8080
-    ci_config.vm.forward_port "nexus", 8081, 8081
-    ci_config.vm.forward_port "ssh", 22, 2222
-    ci_config.vm.forward_port("db", 3306, 3306)
+  config.vm.define :db do |db_config|
+    db_config.vm.box = "oneiric32"
+    db_config.vm.forward_port "ssh", 22, 2222
+    db_config.vm.forward_port "mysql", 3306, 3306
     
-    
-    
-    ci_config.vm.provision :puppet do |puppet|
+    db_config.vm.provision :puppet do |puppet|
      puppet.manifests_path = "puppet/manifests"
-     puppet.manifest_file  = "ci.pp"
+     puppet.manifest_file  = "db.pp"
      puppet.module_path = "puppet/modules"
      #puppet.options = "--trace --debug"
     end
@@ -24,7 +20,6 @@ Vagrant::Config.run do |config|
   config.vm.define :web do |web_config|
     web_config.vm.box = "oneiric32"
     web_config.vm.forward_port "ssh", 22, 2200
-    config.vm.share_folder "v-data", "/webapp", "webapp/src/main/webapp"
     
     web_config.vm.provision :puppet do |puppet|
      puppet.manifests_path = "puppet/manifests"
