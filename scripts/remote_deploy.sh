@@ -10,7 +10,7 @@ upload_file() {
     echo "Uploading $file to $server:$target"
     scp $file $server:$target
     if [ "$?" -ne "0" ]; then
-      echo "The command scp $file $user@$server:$target failed! Quitting ..."
+      echo "The command scp -P $file $user@$server:$target failed! Quitting ..."
       exit 800
     fi
   else
@@ -35,6 +35,7 @@ function contains() {
 ##########################
 
 servers=( "localhost" "node1" "node2" "node3")
+ssh_port=22
 
 if [ $# -lt 1 ]; then
    echo 1>&2 "Usage: $0 [<server> ...]"
@@ -85,6 +86,16 @@ if [ "true" == $deploy_from_local_files ]; then
     esac
   done
 fi
+
+while true; do
+  read -p "Which ssh port do you want to connect to? [$ssh_port] " input_ssh_port
+  ssh_port=$input_ssh_port
+  if [[ $ssh_port -lt 1 || $ssh_port -gt 65536 ]]; then
+    echo "You must enter a valid port number."
+  else
+    break;
+  fi
+done
 
 candidate_artifacts=( "webapp" )
 declare -a artifacts
@@ -145,7 +156,7 @@ do
     if [ "true" == $deploy_from_local_files ]; then
       upload_file $server_host "../$artifact/target/$artifact-$version.zip" $home
     fi
-    cmd="ssh -tt $server_host \"cd $home ; nohup ./deploy.sh $artifact $version > /dev/null 2>&1 </dev/null\""
+    cmd="ssh -tt -p$ssh_port $server_host \"cd $home ; nohup ./deploy.sh $artifact $version > /dev/null 2>&1 </dev/null\""
     echo "Running: $cmd"
     eval $cmd
     response=$?
