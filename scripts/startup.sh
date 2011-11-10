@@ -5,6 +5,7 @@
 # Start up script
 # The script is adapted for start/stop at boot/shutdown of the OS.
 # Installs as /etc/init.d/<app-name>
+# JAVA_HOME must be set in your environment.
 # Modify the variables below for your set-up.
 #
 # chkconfig: 2345 20 80
@@ -12,7 +13,6 @@
 #
 
 APP_NAME=webapp
-JAVA_HOME=/usr/lib/jvm/java-6-openjdk/jre
 HOME_DIR=/server/bekkopen
 USER=bekkopen
 
@@ -29,8 +29,7 @@ umask 002
 
 export JAVA_HOME APPDIR LC_ALL
 
-PID=`ps -ea -o "pid ppid args" | grep -v grep | grep "${JAVA_HOME}/bin/java" \
-    | grep "classpath :${APP_HOME}/etc" | sed -e 's/^  *//' -e 's/ .*//' | head -1`
+PID=`ps -ea -o "pid ppid args" | grep -v grep | grep "classpath :${APP_HOME}/etc" | sed -e 's/^  *//' -e 's/ .*//' | head -1`
 
 ############## FUNCTIONS ################################################
 

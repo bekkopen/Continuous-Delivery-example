@@ -34,7 +34,7 @@ function contains() {
 
 ##########################
 
-servers=( "node1" "node2" "node3")
+servers=( "localhost" "node1" "node2" "node3")
 
 if [ $# -lt 1 ]; then
    echo 1>&2 "Usage: $0 [<server> ...]"
@@ -117,7 +117,6 @@ server_suffix=".morisbak.net"
 home="./"
 script_dir="."
 config_dir="../config"
-target_config_file="deploy.config"
 
 targets=${arguments[@]}
 declare -a deploy_cmds
@@ -126,14 +125,20 @@ for target in ${targets[@]}
 do
   server=$target
   user="bekkopen"
-  config_file="$config_dir/$target/deploy.config"
-  startup_script="$script_dir/$target/startup.sh"
-  deploy_script="$script_dir/$target/deploy.sh"
-  server_host="$user@$server$server_suffix"
+  config_file="$config_dir/deploy.config"
+  startup_script="$script_dir/startup.sh"
+  deploy_script="$script_dir/deploy.sh"
+  monitor_script="$script_dir/server_monitor.sh"
+  if [ "localhost" == $server ]; then
+    server_host="$user@$server"
+  else
+    server_host="$user@$server$server_suffix"
+  fi
   if [ "true" == $deploy_from_local_files ]; then
     upload_file $server_host $startup_script $home
     upload_file $server_host $deploy_script $home
-    upload_file $server_host $config_file "$home/$target_config_file"
+    upload_file $server_host $config_file $home
+    upload_file $server_host $monitor_script $home
   fi
   for artifact in ${artifacts[@]}
   do

@@ -129,10 +129,10 @@ do
   fi
   server_host="$user@$server"
   if [ "true" == $deploy_from_local_files ]; then
-    upload_file $server_host $scripts_dir/$target/$startup_script ./
-    upload_file $server_host $scripts_dir/$target/$deploy_script ./
-    upload_file $server_host $scripts_dir/$target/$monitor_script ./
-    upload_file $server_host $config_dir/$target/$config_file ./
+    upload_file $server_host $scripts_dir/$startup_script ./
+    upload_file $server_host $scripts_dir/$deploy_script ./
+    upload_file $server_host $scripts_dir/$monitor_script ./
+    upload_file $server_host $config_dir/$config_file ./
     for artifact in ${artifacts[@]}
     do
       upload_file $server_host "../$artifact/target/$artifact-$version.zip" ./

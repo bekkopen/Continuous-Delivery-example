@@ -226,24 +226,24 @@
 									<arg value="${host.user}@${host}:" />
 								</exec>
 								<echo message="Uploading deploy.config to ${host}..." />
-								<echo message="Running: scp -P${ssh-port} ../config/${host}/deploy.config ${host.user}@${host}:${host.path}" />
+								<echo message="Running: scp -P${ssh-port} ../config/deploy.config ${host.user}@${host}:${host.path}" />
 								<exec executable="scp" failonerror="true">
 									<arg value="-P${ssh-port}" />
-									<arg value="../config/${host}/deploy.config" />
+									<arg value="../config/deploy.config" />
 									<arg value="${host.user}@${host}:" />
 								</exec>
 								<echo message="Uploading startup.sh to ${host}..." />
-								<echo message="Running: scp -P${ssh-port} ../scripts/${host}/startup.sh ${host.user}@${host}:${host.path}" />
+								<echo message="Running: scp -P${ssh-port} ../scripts/startup.sh ${host.user}@${host}:${host.path}" />
 								<exec executable="scp" failonerror="true">
 									<arg value="-P${ssh-port}" />
-									<arg value="../scripts/${host}/startup.sh" />
+									<arg value="../scripts/startup.sh" />
 									<arg value="${host.user}@${host}:" />
 								</exec>
 								<echo message="Uploading server_monitor.sh to ${host}..." />
-								<echo message="Running: scp -P${ssh-port} ../scripts/${host}/server_monitor.sh ${host.user}@${host}:${host.path}" />
+								<echo message="Running: scp -P${ssh-port} ../scripts/server_monitor.sh ${host.user}@${host}:${host.path}" />
 								<exec executable="scp" failonerror="true">
 									<arg value="-P${ssh-port}" />
-									<arg value="../scripts/${host}/server_monitor.sh" />
+									<arg value="../scripts/server_monitor.sh" />
 									<arg value="${host.user}@${host}:" />
 								</exec>
 								<echo message="Uploading ${project.build.finalName}.zip to ${host}..." />
