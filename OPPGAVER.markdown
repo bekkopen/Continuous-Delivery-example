@@ -1,0 +1,5 @@
+- starte opp vagrant og ssh-e seg inn
+- lage en puppet-klasse som legger en fil på server
+- lage/finne egen public-key og provisjonere denne inn på serverne
+- lage en puppet-modul som installerer en apt-pakke
+- sette opp vagrant til å dele en villkårlig mappe 
