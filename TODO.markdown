@@ -1,3 +1,3 @@
 - liste over oppgaver
-
-
+- oppdatere README.md med dokumentasjon om Vagrant og Puppet.
+- Provisjonere opp jenkins ssh-keys og den offentlige nøkkelen i bekkopen sin authorized-keys på node2 og node3.
