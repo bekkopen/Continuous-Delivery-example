@@ -89,7 +89,9 @@ fi
 
 while true; do
   read -p "Which ssh port do you want to connect to? [$ssh_port] " input_ssh_port
-  ssh_port=$input_ssh_port
+  if [ $input_ssh_port ]; then
+    ssh_port=$input_ssh_port
+  fi
   if [[ $ssh_port -lt 1 || $ssh_port -gt 65536 ]]; then
     echo "You must enter a valid port number."
   else
