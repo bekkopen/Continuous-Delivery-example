@@ -417,7 +417,7 @@
 					<version>${sql-maven-plugin.version}</version>
 					<configuration>
 						<driver>com.mysql.jdbc.Driver</driver>
-						<url>jdbc:mysql://node1.morisbak.net/bekkopen</url>
+						<url>jdbc:mysql://${db.host}/bekkopen</url>
 						<username>bekkopen</username>
 						<password>hemmelig</password>
 					</configuration>
@@ -552,6 +552,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jetty.port>9090</jetty.port>
+		<db.host>node1.morisbak.net</db.host>
 		<host>localhost</host>
 		<host.user>bekkopen</host.user>
 		<host.path>/server/bekkopen</host.path>

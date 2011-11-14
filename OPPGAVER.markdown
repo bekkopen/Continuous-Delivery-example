@@ -47,7 +47,12 @@ Test appen på produksjonslikt milø:
 Versjonering av database med Liquibase:
 ------------------------------------
 - Opprett skjema i lokal MySql 
+   * cd database/
+   * modifiser src/main/java/no/bekk/bekkopen/cde/database/Main.java
+   * mvn clean install
+   * java -jar database-*-SNAPSHOT.jar update
 - Populer skjema med testdata (mvn sql:execute)
+   * mvn process-test-resources sql:execute -Ddb.host=localhost
 
 Push deploy til test-server:
 -------------------------
