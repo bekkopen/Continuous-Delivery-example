@@ -96,7 +96,7 @@ public class WebServerMain {
 			System.setOut(serverLog);
 			System.setErr(serverLog);
 		} catch (final Exception e) {
-			throw new RuntimeException(UNABLE_TO_STOP + ": Unable to configure logging: " + e);
+			throw new RuntimeException(UNABLE_TO_START + ": Unable to configure logging: " + e);
 		}
 
 	}
