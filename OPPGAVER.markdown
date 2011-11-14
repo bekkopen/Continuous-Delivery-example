@@ -1,6 +1,7 @@
 Sett opp utviklingsmiljø:
 -------------------------
 - Git, Ruby, VirtualBox, Vagrant, Java, Maven, IDE
+- Sjekk ut: git clone https://github.com/bekkopen/Continuous-Delivery-example
 - Deltakerne får utlevert memory stick med VirtualBox og ubuntu-baseboks
  
 Sett opp produksjonslikt lokalt utviklingsmiljø:
