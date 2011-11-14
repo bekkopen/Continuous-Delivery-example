@@ -8,7 +8,7 @@ upload_file() {
   local target=$3
   if [ -f $file ]; then
     echo "Uploading $file to $server:$target"
-    scp $file $server:$target
+    scp -P${ssh_port} $file $server:$target
     if [ "$?" -ne "0" ]; then
       echo "The command scp -P $file $user@$server:$target failed! Quitting ..."
       exit 800
