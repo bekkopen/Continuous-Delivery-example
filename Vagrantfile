@@ -29,11 +29,13 @@ Vagrant::Config.run do |config|
     db_config.vm.network("33.33.33.10")
     
     
+    #db_config.vm.boot_mode = :gui
+    
     db_config.vm.provision :puppet do |puppet|
      puppet.manifests_path = "puppet/manifests"
      puppet.manifest_file  = "db.pp"
      puppet.module_path = "puppet/modules"
-     #puppet.options = "--trace --debug"
+     puppet.options = "--trace --debug"
     end
   end
 
@@ -49,7 +51,7 @@ Vagrant::Config.run do |config|
      puppet.manifests_path = "puppet/manifests"
      puppet.manifest_file  = "web.pp"
      puppet.module_path = "puppet/modules"
-     #puppet.options = "--trace --debug"
+     puppet.options = "--trace --debug"
     end
   end
 
