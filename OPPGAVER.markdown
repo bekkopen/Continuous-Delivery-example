@@ -28,10 +28,12 @@ Sett opp produksjonslikt lokalt utviklingsmiljø:
   - bytte bruker til 'bekkopen'-bruker (sudo su bekkopen)
   - eller logge seg inn 'ssh bekkopen@localhost -p 2200'
 - Lage/finne egen public-key og provisjonere denne inn på bekkopen-bruker
-    * eksempel i classes/users.pp  
+    * hvis du ikke har egen privat/public-key, stå i ~/.ssh og kjør 'ssh-keygen'
+    * eksempel på kode i puppet/manifests/classes/users.pp  
     * ssh bekkopen@localhost -p 2200
 - Provisjonere maven på web-noden
-  - hvor legger du koden?
+  * eksempel i puppet/modules/nexus
+  * husk symlinking av mvn-kommandoen
 - Dele ~/.m2-mappe med web-boksen.
   - i /home/vagrant
 
@@ -41,6 +43,10 @@ Test appen på produksjonslikt milø:
 - Ssh inn på vagrant-boks (som vagrant)
 - Kjør mvn exec:java
 - (Push deploy med Maven: mvn clean install -Dpush-deploy (-Dssh-port=2200))
+
+Konfigurer app v.h.a secret.properties
+--------------------------------------
+TODO
 
 Versjonering av database med Liquibase:
 ------------------------------------
@@ -54,8 +60,10 @@ Versjonering av database med Liquibase:
 
 Push deploy til test-server:
 -------------------------
+- 
 - Push deploy med Maven: mvn clean install -Dpush-deploy -Dhost=<hostname>
 - Push deploy med skript: ./remote_deploy.sh <node>
+
 - Push deploy fra Jenkins
 
 Pull deploy (single binary)  til QA/Prod:
