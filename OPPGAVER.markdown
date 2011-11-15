@@ -90,3 +90,4 @@ Ressurser
 - Bygge eget vagrant-image: http://www.yodi.me/blog/2011/10/26/build-base-box-vagrant-ubuntu-oneiric-11.10-server/
 - Installere puppetmaster på prod-server: http://www.ctrip.ufl.edu/install-puppetmaster-puppets-debian-lenny
 - Eksempel på mysql-puppet-modul: http://bitfieldconsulting.com/puppet-and-mysql-create-databases-and-users
+- Teste syntax på puppet i jenkins: http://mig5.net/node/341
