@@ -17,7 +17,7 @@ Sett opp utviklingsmiljø:
   - mvn clean install
   - cd webapp
   - mvn process-test-resources exec:java -Djetty.port=9191 -Ddev=true -Drun.exploded=true
-  - åpne browser på localhost:9090
+  - åpne browser på localhost:9191
  
 Sett opp produksjonslikt lokalt utviklingsmiljø:
 ------------------------------------------------
