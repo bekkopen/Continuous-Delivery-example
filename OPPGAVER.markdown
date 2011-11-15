@@ -1,6 +1,8 @@
 Sett opp utviklingsmiljø:
 -------------------------
 - Git, Ruby, VirtualBox (v. 4.1.4, virtualbox.org), Vagrant, Java, Maven, IDE
+  - gem install vagrant --no-rdoc --no-ri
+  
 - Deltakerne får utlevert memory stick med VirtualBox og ubuntu-baseboks
 - Sjekk ut prosjektet:
   - git clone https://github.com/bekkopen/Continuous-Delivery-example
