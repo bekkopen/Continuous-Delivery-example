@@ -18,8 +18,6 @@ Sett opp utviklingsmiljø:
   - cd webapp
   - mvn process-test-resources exec:java -Djetty.port=9191 -Ddev=true -Drun.exploded=true
   - åpne browser på localhost:9090
-- Importer prosjekt inn i IDE
-
  
 Sett opp produksjonslikt lokalt utviklingsmiljø:
 ------------------------------------------------
