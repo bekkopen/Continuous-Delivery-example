@@ -12,8 +12,10 @@ Sett opp utviklingsmiljø:
 - Installer ubuntu-base box (stå i minnepinne-mappa)
   - vagrant box add oneiric32 oneiric32.box
 - Start opp db- og web-server
+  - cd <prosjektmappe>
   - vagrant up
 - Ny terminal
+  - cd <prosjektmappe>  
   - mvn clean install
   - cd webapp
   - mvn process-test-resources exec:java -Djetty.port=9191 -Ddev=true -Drun.exploded=true
