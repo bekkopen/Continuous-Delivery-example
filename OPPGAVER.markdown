@@ -3,14 +3,16 @@ Sett opp utviklingsmiljø:
 - Git, Ruby, VirtualBox (v. 4.1.4, virtualbox.org), Vagrant, Java, Maven, IDE
   - gem install vagrant --no-rdoc --no-ri
   
-- Deltakerne får utlevert memory stick med VirtualBox og ubuntu-baseboks
 - Sjekk ut prosjektet:
   - git clone https://github.com/bekkopen/Continuous-Delivery-example
   - cd Continuous-Delivery-example
   - git submodule init
   - git submodule update
+Frivillig steg:
+-----------------
 - Installer ubuntu-base box (stå i minnepinne-mappa)
   - vagrant box add oneiric32 oneiric32.box
+
 - Start opp db- og web-server
   - vagrant up
 - Ny terminal

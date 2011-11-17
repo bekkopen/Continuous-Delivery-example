@@ -22,6 +22,7 @@ Vagrant::Config.run do |config|
   
   
   config.vm.define :db do |db_config|
+    db_config.vm.box_url = "https://s3-eu-west-1.amazonaws.com/bekkopen/oneiric32.box"
     db_config.vm.box = "oneiric32"
     db_config.vm.forward_port "ssh", 22, 2222
     db_config.vm.forward_port "mysql", 3306, 3306
@@ -40,6 +41,7 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.define :web do |web_config|
+    web_config.vm.box_url = "https://s3-eu-west-1.amazonaws.com/bekkopen/oneiric32.box"
     web_config.vm.box = "oneiric32"
     web_config.vm.forward_port "webapp", 9090, 9090
     web_config.vm.forward_port "ssh", 22, 2200
