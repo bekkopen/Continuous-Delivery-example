@@ -28,7 +28,7 @@ For å verifisere at alt er riktig satt opp kan du gjøre følgende:
 2. Start vagrant (dette tar litt tid i og med at det skal lastes ned et vm-image):
   - vagrant up
   
-3 .Kopier maven settings.xml fra <prosjektmappe>/config/settings.xml.example til ~/.m2/settings.xml (ta backup av evt. eksisterende settings.xml)  
+3. Kopier maven settings.xml fra <prosjektmappe>/config/settings.xml.example til ~/.m2/settings.xml (ta backup av evt. eksisterende settings.xml)  
 
 4. Kjør maven-bygg
   - mvn clean install
