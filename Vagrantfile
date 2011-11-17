@@ -48,8 +48,6 @@ Vagrant::Config.run do |config|
     
     web_config.vm.network("33.33.33.11")
     
-    web_config.vm.share_folder "m2_repo", "/home/vagrant/.m2", "~/.m2"
-    
     web_config.vm.provision :puppet do |puppet|
      puppet.manifests_path = "puppet/manifests"
      puppet.manifest_file  = "web.pp"
