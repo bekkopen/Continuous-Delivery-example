@@ -14,8 +14,10 @@ Frivillig steg:
   - vagrant box add oneiric32 oneiric32.box
 
 - Start opp db- og web-server
+  - cd <prosjektmappe>
   - vagrant up
 - Ny terminal
+  - cd <prosjektmappe>  
   - mvn clean install
   - cd webapp
   - mvn process-test-resources exec:java -Djetty.port=9191 -Ddev=true -Drun.exploded=true
@@ -30,10 +32,12 @@ Sett opp produksjonslikt lokalt utviklingsmiljø:
   - bytte bruker til 'bekkopen'-bruker (sudo su bekkopen)
   - eller logge seg inn 'ssh bekkopen@localhost -p 2200'
 - Lage/finne egen public-key og provisjonere denne inn på bekkopen-bruker
-    * eksempel i classes/users.pp  
+    * hvis du ikke har egen privat/public-key, stå i ~/.ssh og kjør 'ssh-keygen'
+    * eksempel på kode i puppet/manifests/classes/users.pp  
     * ssh bekkopen@localhost -p 2200
 - Provisjonere maven på web-noden
-  - hvor legger du koden?
+  * eksempel i puppet/modules/nexus
+  * husk symlinking av mvn-kommandoen
 - Dele ~/.m2-mappe med web-boksen.
   - i /home/vagrant
 
@@ -43,6 +47,10 @@ Test appen på produksjonslikt milø:
 - Ssh inn på vagrant-boks (som vagrant)
 - Kjør mvn exec:java
 - (Push deploy med Maven: mvn clean install -Dpush-deploy (-Dssh-port=2200))
+
+Konfigurer app v.h.a secret.properties
+--------------------------------------
+TODO
 
 Versjonering av database med Liquibase:
 ------------------------------------
@@ -56,8 +64,10 @@ Versjonering av database med Liquibase:
 
 Push deploy til test-server:
 -------------------------
+- 
 - Push deploy med Maven: mvn clean install -Dpush-deploy -Dhost=<hostname>
 - Push deploy med skript: ./remote_deploy.sh <node>
+
 - Push deploy fra Jenkins
 
 Pull deploy (single binary)  til QA/Prod:
@@ -92,3 +102,4 @@ Ressurser
 - Bygge eget vagrant-image: http://www.yodi.me/blog/2011/10/26/build-base-box-vagrant-ubuntu-oneiric-11.10-server/
 - Installere puppetmaster på prod-server: http://www.ctrip.ufl.edu/install-puppetmaster-puppets-debian-lenny
 - Eksempel på mysql-puppet-modul: http://bitfieldconsulting.com/puppet-and-mysql-create-databases-and-users
+- Teste syntax på puppet i jenkins: http://mig5.net/node/341
