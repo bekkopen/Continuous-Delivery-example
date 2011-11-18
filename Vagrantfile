@@ -46,6 +46,8 @@ Vagrant::Config.run do |config|
     web_config.vm.forward_port "webapp", 9090, 9090
     web_config.vm.forward_port "ssh", 22, 2200
     
+    web_config.vm.share_folder "maven-repo", "/home/vagrant/.m2", "~/.m2"
+    
     web_config.vm.network("33.33.33.11")
     
     web_config.vm.provision :puppet do |puppet|
