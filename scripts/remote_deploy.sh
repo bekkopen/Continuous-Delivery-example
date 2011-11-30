@@ -147,12 +147,10 @@ do
   else
     server_host="$user@$server$server_suffix"
   fi
-  if [ "true" == $deploy_from_local_files ]; then
-    upload_file $server_host $startup_script $home
-    upload_file $server_host $deploy_script $home
-    upload_file $server_host $config_file $home
-    upload_file $server_host $monitor_script $home
-  fi
+  upload_file $server_host $startup_script $home
+  upload_file $server_host $deploy_script $home
+  upload_file $server_host $config_file $home
+  upload_file $server_host $monitor_script $home
   for artifact in ${artifacts[@]}
   do
     if [ "true" == $deploy_from_local_files ]; then
