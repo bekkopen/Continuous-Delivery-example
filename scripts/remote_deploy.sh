@@ -1,16 +1,62 @@
 #!/bin/bash
 
-###### FUNKSJONER #########
+declare method
+declare -a servers
+declare version
+ssh_port=22
+declare -a artifacts
 
-upload_file() {
+###### FUNCTIONS #########
+
+_addopts () {
+  while getopts ":m:s:v:p:a:" optname
+    do
+      case "$optname" in
+        "m")
+          echo "Method ($optname) has value $OPTARG"
+	  method=$OPTARG
+          ;;
+        "s")
+          echo "Adding server $OPTARG"
+          servers[$[${#servers[@]}+1]]=$OPTARG
+          ;;
+        "v")
+          echo "Version ($optname) has value $OPTARG"
+	  version=$OPTARG
+          ;;
+        "p")
+          echo "Ssh-port ($optname) has value $OPTARG"
+	  ssh_port=$OPTARG
+          ;;
+        "a")
+          echo "Adding artifact $OPTARG"
+	  artifacts[$[${#artifacts[@]}+1]]=$OPTARG
+          ;;
+        "?")
+          echo "Unknown option $OPTARG"
+          ;;
+        ":")
+          echo "No argument value for option $OPTARG"
+          ;;
+        *)
+        # Should not occur
+          echo "Unknown error while processing options"
+          ;;
+      esac
+    done
+  return $OPTIND
+}
+
+_upload_file() {
   local server=$1
   local file=$2
   local target=$3
   if [ -f $file ]; then
-    echo "Uploading $file to $server:$target"
-    scp -P${ssh_port} $file $server:$target
+    cmd="scp -P${ssh_port} $file $server:$target"
+    echo "Running: $cmd"
+    eval $cmd
     if [ "$?" -ne "0" ]; then
-      echo "The command scp -P $file $user@$server:$target failed! Quitting ..."
+      echo "The command scp -P${ssh_port} $file $server:$target failed! Quitting ..."
       exit 800
     fi
   else
@@ -19,7 +65,7 @@ upload_file() {
   fi
 }
 
-function contains() {
+_contains() {
   local n=$#
   local value=${!n}
   for ((i=1;i < $#;i++)) {
@@ -34,44 +80,47 @@ function contains() {
 
 ##########################
 
-servers=( "localhost" "node1" "node2" "node3")
-ssh_port=22
+_addopts "$@"
 
-if [ $# -lt 1 ]; then
-   echo 1>&2 "Usage: $0 [<server> ...]"
-   echo 1>&2 "Valid servers: ${servers[@]}"
-   exit 802
-fi
+valid_servers=( "localhost" "node1" "node2" "node3")
 
-arguments=( $@ )
-
-for i in $*
+for server in ${servers[@]}
 do
-  if [ $(contains "${servers[@]}" $i) == "n" ]; then
-    echo "Invalid server: $i"
-    exit 803
+  if [ $(_contains "${valid_servers[@]}" $server) == "n" ]; then
+    echo "Invalid server: $server"
+    exit 802
   fi
 done
 
-version="`grep artifactId.*parent ../pom.xml -A1 | grep version | sed -E 's/.*<version>(.*)<\/version>/\1/'`"
-read -p "Version? [$version] " input_version
-if [ $input_version ]; then
-  version=$input_version
+if [ -z "$version" ]; then
+  version="`grep artifactId.*parent ../pom.xml -A1 | grep version | sed -E 's/.*<version>(.*)<\/version>/\1/'`"
+  read -p "Version? [$version] " input_version
+  if [ $input_version ]; then
+    version=$input_version
+  fi
 fi
 yn=y
-while true; do
-    read -p "Do you wish to upload the app from local machine? [$yn] " input_yn
-    if [ $input_yn ]; then
-      yn=$input_yn
-    fi
-    case $yn in
-      [Yy]* ) deploy_from_local_files="true"
-      break;;
-      [Nn]* ) deploy_from_local_files="false"
-      break;;
-      * ) echo "You must answer yes or no.";;
-    esac
-done
+if [ -z "$method" ]; then
+  while true; do
+      read -p "Do you wish to upload the app from local machine? [$yn] " input_yn
+      if [ $input_yn ]; then
+        yn=$input_yn
+      fi
+      case $yn in
+        [Yy]* ) deploy_from_local_files="true"
+        break;;
+        [Nn]* ) deploy_from_local_files="false"
+        break;;
+        * ) echo "You must answer yes or no.";;
+      esac
+  done
+elif [ "local" == $method ]; then
+  deploy_from_local_files="true"
+elif [ "remote" == $method ]; then
+  deploy_from_local_files="false"
+else
+  echo "Method (-m) must be remote or local. Was: $method"  
+fi
 if [ "true" == $deploy_from_local_files ]; then
   yn=y
   while true; do
@@ -87,42 +136,54 @@ if [ "true" == $deploy_from_local_files ]; then
   done
 fi
 
-while true; do
-  read -p "Which ssh port do you want to connect to? [$ssh_port] " input_ssh_port
-  if [ $input_ssh_port ]; then
-    ssh_port=$input_ssh_port
-  fi
-  if [[ $ssh_port -lt 1 || $ssh_port -gt 65536 ]]; then
-    echo "You must enter a valid port number."
-  else
-    break;
-  fi
-done
+if [ -z "$ssh_port" ]; then
+  while true; do
+    read -p "Which ssh port do you want to connect to? [$ssh_port] " input_ssh_port
+    if [ $input_ssh_port ]; then
+      ssh_port=$input_ssh_port
+    fi
+  done
+fi
+
+if [[ $ssh_port -lt 1 || $ssh_port -gt 65536 ]]; then
+  echo "You must enter a valid port number."
+  exit 803;
+fi
 
 candidate_artifacts=( "webapp" )
-declare -a artifacts
-for artifact in ${candidate_artifacts[@]}
-do
-while true; do
-      yn=y
-      read -p "Do you wish to deploy $artifact? [$yn] " input_yn
-      if [ $input_yn ]; then
-        yn=$input_yn
-      fi
-      case $yn in
-        [Yy]* ) artifacts[$[${#artifacts[@]}+1]]=$artifact
-        break;;
-        [Nn]* )
-        break;;
-        * ) echo "You must answer yes or no.";;
-      esac
-  done
-done
 
 if [ ${#artifacts[@]} -eq 0 ]; then
-  echo "You must choose at least one artifact!"
-  exit 0;
+  for artifact in ${candidate_artifacts[@]}
+  do
+    while true; do
+        yn=y
+        read -p "Do you wish to deploy $artifact? [$yn] " input_yn
+        if [ $input_yn ]; then
+          yn=$input_yn
+        fi
+        case $yn in
+          [Yy]* ) artifacts[$[${#artifacts[@]}+1]]=$artifact
+          break;;
+          [Nn]* )
+          break;;
+          * ) echo "You must answer yes or no.";;
+        esac
+    done
+  done
+
+  if [ ${#artifacts[@]} -eq 0 ]; then
+    echo "You must choose at least one artifact!"
+    exit 0;
+  fi
 fi
+
+for artifact in ${artifacts[@]}
+do
+  if [ $(_contains "${candidate_artifacts[@]}" $artifact) == "n" ]; then
+    echo "Invalid artifact: $artifact"
+    exit 804
+  fi
+done
 
 echo The following artifacts will be deployed: ${artifacts[@]}
 
@@ -131,7 +192,7 @@ home="./"
 script_dir="."
 config_dir="../config"
 
-targets=${arguments[@]}
+targets=${servers[@]}
 declare -a deploy_cmds
 
 for target in ${targets[@]}
@@ -147,14 +208,14 @@ do
   else
     server_host="$user@$server$server_suffix"
   fi
-  upload_file $server_host $startup_script $home
-  upload_file $server_host $deploy_script $home
-  upload_file $server_host $config_file $home
-  upload_file $server_host $monitor_script $home
+  _upload_file $server_host $startup_script $home
+  _upload_file $server_host $deploy_script $home
+  _upload_file $server_host $config_file $home
+  _upload_file $server_host $monitor_script $home
   for artifact in ${artifacts[@]}
   do
     if [ "true" == $deploy_from_local_files ]; then
-      upload_file $server_host "../$artifact/target/$artifact-$version.zip" $home
+      _upload_file $server_host "../$artifact/target/$artifact-$version.zip" $home
     fi
     cmd="ssh -tt -p$ssh_port $server_host \"cd $home ; nohup ./deploy.sh $artifact $version > /dev/null 2>&1 </dev/null\""
     echo "Running: $cmd"
